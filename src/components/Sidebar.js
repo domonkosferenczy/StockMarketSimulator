@@ -4,6 +4,7 @@ import AvailableStocks from './Sidebar/AvailableStocks'
 import '../stylesheet/App.css';
 
 function Sidebar() {
+
   return (
     <div className="Sidebar">
       <SidebarHeader />
