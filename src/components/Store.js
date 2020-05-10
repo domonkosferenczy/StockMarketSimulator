@@ -13,11 +13,13 @@ const initialState = {
             valueOfStocks: {
                 "2020-01-01": 300
             }
-        }
+        },
+        prevValueOfStocks: 0,
+        valueOfStocks: 0
     },
     animation: {
-        shownFrom: "2020-01-01",
-        currentDate: "2020-01-01",
+        shownFrom: "2016-01-04",
+        currentDate: "2016-01-04",
         speed: 1,
         paused: true,
         zoom: 1,

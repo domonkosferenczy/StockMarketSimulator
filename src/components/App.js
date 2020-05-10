@@ -1,6 +1,6 @@
 import React from 'react';
 import Sidebar from './Sidebar';
-import Graph from './Graph';
+import GraphContainer from './GraphContainer';
 import Dashboard from './Dashboard';
 import '../stylesheet/App.css';
 import {Store} from './Store';
@@ -12,7 +12,7 @@ function App() {
       <div className="App">
         <Sidebar />
         <div className="AppRightSection" id="appright">
-          <Graph />
+          <GraphContainer />
           <Dashboard />
         </div>
       </div>

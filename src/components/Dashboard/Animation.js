@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import 'stylesheet/App.css';
 import Faster from 'images/faster.svg'
 import Play from 'images/play.svg'
@@ -6,7 +6,7 @@ import PlayEnd from 'images/playEnd.svg'
 import Minus from 'images/minus.svg'
 import Plus from 'images/plus.svg'
 import Pause from 'images/pause.svg'
-import {StoreContext} from 'components/Store'
+import { StoreContext } from 'components/Store'
 import { DataContext } from 'components/Data';
 
 function Animation() {
@@ -20,7 +20,7 @@ function Animation() {
     let nextIndex = data.dates.indexOf(state.animation.currentDate) + dir
     if (nextIndex < data.dates.length && nextIndex >= 0) {
       let nextDate = data.dates[nextIndex]
-      dispatch({type: "SET_CURRENT_DATE", payload: nextDate});     
+      dispatch({type: "SET_CURRENT_DATE", payload: nextDate});
     } else {
       clearInterval(timer)
       dispatch({type: "SET_PAUSED", payload: true})

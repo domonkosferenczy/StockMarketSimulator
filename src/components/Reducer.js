@@ -16,6 +16,22 @@ const Reducer = (state, action) => {
                     capitalAvailable: (parseFloat([state.user.capitalAvailable])) + parseFloat(action.payload)
                 }
             };
+        case 'SET_VALUE_OF_STOCKS':
+        return {
+            ...state,
+            user: {
+                ...state.user,
+                valueOfStocks: action.payload
+            }
+        };
+        case 'SET_PRE_VALUE_OF_STOCKS':
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    preValueOfStocks: action.payload
+                }
+            }
 
         // FILTER
         case 'SET_FILTER_INPUT':

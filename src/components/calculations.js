@@ -37,7 +37,7 @@ export const formatMoney = money => {
         return ((negative)?"-":"") + IntegerParts + "." + money[1].substring(0, 2)
     } else {
         IntegerParts = match(money);
-        return ((negative)?"-":"") + IntegerParts
+        return ((negative)?"-":"") + IntegerParts + ""
     }
     
 }

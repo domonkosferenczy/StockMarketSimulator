@@ -324,17 +324,19 @@ code {
   height: 10px;
 }
 
-.Graph {
-  max-height: 80vh;
+.GraphContainer {
   min-height: 70%;
   background: var(--lightenGrey);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   position: relative;
   z-index: 8;
-  padding: 0.5em 1em;
   text-shadow: 0 0 1px #fff;
   display: flex;
   flex-direction: column;
+}
+
+.Graph {
+
 }
 
 .GraphTicker {
