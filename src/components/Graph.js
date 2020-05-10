@@ -24,39 +24,23 @@ function Graph(props) {
     })
     listOfNumbers.push(...numbers)
   })
-  console.log(listOfNumbers)
+
   constants.min = Math.min(...listOfNumbers) - Math.min(...listOfNumbers) / 10
-  constants.max = Math.max(...listOfNumbers) + Math.max(...listOfNumbers) / 10
-
-
-  /*for(let i = 0; i < shownDates.length; i++){
-    const listOfNumbers = Object.keys(chosenDatapoints[shownDates[i]]).map((key) => {
-      return chosenDatapoints[shownDates[i]][key]
-    })
-    const min = Math.min(...listOfNumbers)
-    const max = Math.max(...listOfNumbers)
-
-    if(min < constants.min){
-      constants.min = min - (min / 10)
-    }
-    if(max > constants.max){
-      constants.max = max + (max / 10)
-    }
-  }*/
+  constants.max = Math.max(...listOfNumbers) + Math.max(...listOfNumbers) / 5
 
   const padding = {horizontal: container.width / 20, vertical: container.height / 20}
   const renderSize = {width: container.width - padding.horizontal, height: container.height - padding.vertical}
   const linesY = 7 // 6 but it shouldn't be a constant
   const linesX = 13 // 6 but it shouldn't be a constant
-  let difference = (constants.max - constants.min) / linesY
-  if (difference < 10){
+  let distance = 0
 
-    //constants.min -= constants.min / 2
-    //constants.max += constants.max / 2
-    //difference = (constants.max - constants.min) / linesY
-    //difference = 30
-
+  if (constants.min < 0){
+    distance = constants.max + Math.abs(constants.min)
+  } else {
+    distance = constants.max - constants.min
   }
+
+  let difference = distance / linesY
 
   const distY = renderSize.height / linesY
   const distX = renderSize.width / linesX
