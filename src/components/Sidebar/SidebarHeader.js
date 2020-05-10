@@ -8,7 +8,7 @@ import { DataContext } from 'components/Data';
 function SidebarHeader() {
   
   const [state] = useContext(StoreContext);
-  const data = useContext(DataContext);
+  const [data] = useContext(DataContext);
   const [stateValueOfStocks, setStateValueOfStocks] = useState(0)
   const [change, setChange] = useState("line")
 

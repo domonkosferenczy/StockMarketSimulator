@@ -7,7 +7,7 @@ import {DataContext} from 'components/Data'
 function StocksList() {
 
   const [state] = useContext(StoreContext);
-  const data = useContext(DataContext);
+  const [data] = useContext(DataContext);
 
   let items = 0;
 

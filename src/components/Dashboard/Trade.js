@@ -8,7 +8,7 @@ import {formatMoney, formatDoubleNumbers} from 'components/calculations'
 function Trade() {
 
   const [state, dispatch] = useContext(StoreContext);
-  const data = useContext(DataContext);
+  const [data] = useContext(DataContext);
   const chosen = state.animation.chosen
 
   const initalState = {

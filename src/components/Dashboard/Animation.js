@@ -12,7 +12,7 @@ import { DataContext } from 'components/Data';
 function Animation() {
 
   const [state, dispatch] = useContext(StoreContext);
-  const data = useContext(DataContext);
+  const [data] = useContext(DataContext);
   
 
   const ticker = () => {

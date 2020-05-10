@@ -1,19 +1,49 @@
-const data = [{"date":"2016-01-04T00:00:00.000Z","close":105.35,"high":105.368,"low":102.0,"open":102.61,"volume":67649387,"adjClose":98.199311464,"adjHigh":98.2160897042,"adjLow":95.0766945356,"adjOpen":95.6452904539,"adjVolume":67649387,"divCash":0.0,"splitFactor":1.0},{"date":"2016-01-05T00:00:00.000Z","close":102.71,"high":105.85,"low":102.41,"open":105.75,"volume":55790992,"adjClose":95.7385028995,"adjHigh":98.6653736921,"adjLow":95.4588655627,"adjOpen":98.5721612465,"adjVolume":55790992,"divCash":0.0,"splitFactor":1.0},{"date":"2016-01-06T00:00:00.000Z","close":100.7,"high":102.37,"low":99.87,"open":100.56,"volume":68457388,"adjClose":93.8649327425,"adjHigh":95.4215805844,"adjLow":93.0912694438,"adjOpen":93.7344353186,"adjVolume":68457388,"divCash":0.0,"splitFactor":1.0},{"date":"2016-01-07T00:00:00.000Z","close":96.45,"high":100.13,"low":96.43,"open":98.68,"volume":81094428,"adjClose":89.9034038035,"adjHigh":93.3336218025,"adjLow":89.8847613144,"adjOpen":91.9820413409,"adjVolume":81094428,"divCash":0.0,"splitFactor":1.0},{"date":"2016-01-08T00:00:00.000Z","close":96.96,"high":99.11,"low":96.76,"open":98.55,"volume":70798016,"adjClose":90.3787872762,"adjHigh":92.3828548571,"adjLow":90.192362385,"adjOpen":91.8608651616,"adjVolume":70798016,"divCash":0.0,"splitFactor":1.0},{"date":"2016-01-11T00:00:00.000Z","close":98.53,"high":99.06,"low":97.34,"open":98.97,"volume":49739377,"adjClose":91.8422226725,"adjHigh":92.3362486343,"adjLow":90.7329945696,"adjOpen":92.2523574332,"adjVolume":49739377,"divCash":0.0,"splitFactor":1.0},{"date":"2016-01-12T00:00:00.000Z","close":99.96,"high":100.69,"low":98.8399,"open":100.55,"volume":49154227,"adjClose":93.1751606449,"adjHigh":93.8556114979,"adjLow":92.1310880415,"adjOpen":93.7251140741,"adjVolume":49154227,"divCash":0.0,"splitFactor":1.0},{"date":"2016-01-13T00:00:00.000Z","close":97.39,"high":101.19,"low":97.3,"open":100.32,"volume":62439631,"adjClose":90.7796007924,"adjHigh":94.3216737261,"adjLow":90.6957095913,"adjOpen":93.5107254491,"adjVolume":62439631,"divCash":0.0,"splitFactor":1.0},{"date":"2016-01-14T00:00:00.000Z","close":99.52,"high":100.48,"low":95.74,"open":97.96,"volume":63170127,"adjClose":92.7650258842,"adjHigh":93.6598653621,"adjLow":89.2415954396,"adjOpen":91.3109117324,"adjVolume":63170127,"divCash":0.0,"splitFactor":1.0},{"date":"2016-01-15T00:00:00.000Z","close":97.13,"high":97.71,"low":95.36,"open":96.2,"volume":79833891,"adjClose":90.5372484338,"adjHigh":91.0778806184,"adjLow":88.8873881462,"adjOpen":89.6703726895,"adjVolume":79833891,"divCash":0.0,"splitFactor":1.0},{"date":"2016-01-19T00:00:00.000Z","close":96.66,"high":98.65,"low":95.5,"open":98.41,"volume":53087747,"adjClose":90.0991499393,"adjHigh":91.9540776072,"adjLow":89.0178855701,"adjOpen":91.7303677377,"adjVolume":53087747,"divCash":0.0,"splitFactor":1.0},{"date":"2016-01-20T00:00:00.000Z","close":96.79,"high":98.1897,"low":93.42,"open":95.1,"volume":72334416,"adjClose":90.2203261186,"adjHigh":91.52502072,"adjLow":87.0790667011,"adjOpen":88.6450357876,"adjVolume":72334416,"divCash":0.0,"splitFactor":1.0},{"date":"2016-01-21T00:00:00.000Z","close":96.3,"high":97.88,"low":94.94,"open":97.06,"volume":52161463,"adjClose":89.7635851351,"adjHigh":91.2363417759,"adjLow":88.4958958746,"adjOpen":90.4719997218,"adjVolume":52161463,"divCash":0.0,"splitFactor":1.0},{"date":"2016-01-22T00:00:00.000Z","close":101.42,"high":101.46,"low":98.37,"open":98.63,"volume":65800467,"adjClose":94.536062351,"adjHigh":94.5733473292,"adjLow":91.6930827595,"adjOpen":91.9354351181,"adjVolume":65800467,"divCash":0.0,"splitFactor":1.0},{"date":"2016-01-25T00:00:00.000Z","close":99.44,"high":101.53,"low":99.21,"open":101.52,"volume":51794525,"adjClose":92.6904559277,"adjHigh":94.6385960412,"adjLow":92.4760673027,"adjOpen":94.6292747966,"adjVolume":51794525,"divCash":0.0,"splitFactor":1.0},{"date":"2016-01-26T00:00:00.000Z","close":99.99,"high":100.88,"low":98.07,"open":99.93,"volume":75077002,"adjClose":93.2031243786,"adjHigh":94.0327151446,"adjLow":91.4134454226,"adjOpen":93.1471969112,"adjVolume":75077002,"divCash":0.0,"splitFactor":1.0},{"date":"2016-01-27T00:00:00.000Z","close":93.42,"high":96.6289,"low":93.34,"open":96.04,"volume":133369674,"adjClose":87.0790667011,"adjHigh":90.0701608687,"adjLow":87.0044967446,"adjOpen":89.5212327765,"adjVolume":133369674,"divCash":0.0,"splitFactor":1.0},{"date":"2016-01-28T00:00:00.000Z","close":94.09,"high":94.52,"low":92.39,"open":93.79,"volume":55678825,"adjClose":87.7035900868,"adjHigh":88.104403603,"adjLow":86.1189785112,"adjOpen":87.4239527499,"adjVolume":55678825,"divCash":0.0,"splitFactor":1.0},{"date":"2016-01-29T00:00:00.000Z","close":97.34,"high":97.34,"low":94.35,"open":94.79,"volume":64416504,"adjClose":90.7329945696,"adjHigh":90.7329945696,"adjLow":87.9459424454,"adjOpen":88.3560772062,"adjVolume":64416504,"divCash":0.0,"splitFactor":1.0},{"date":"2016-02-01T00:00:00.000Z","close":96.43,"high":96.71,"low":95.4,"open":96.47,"volume":40943541,"adjClose":89.8847613144,"adjHigh":90.1457561621,"adjLow":88.9246731245,"adjOpen":89.9220462926,"adjVolume":40943541,"divCash":0.0,"splitFactor":1.0},{"date":"2016-02-02T00:00:00.000Z","close":94.48,"high":96.04,"low":94.28,"open":95.42,"volume":37357215,"adjClose":88.0671186247,"adjHigh":89.5212327765,"adjLow":87.8806937335,"adjOpen":88.9433156136,"adjVolume":37357215,"divCash":0.0,"splitFactor":1.0},{"date":"2016-02-03T00:00:00.000Z","close":96.35,"high":96.84,"low":94.08,"open":95.0,"volume":45964294,"adjClose":89.8101913579,"adjHigh":90.2669323415,"adjLow":87.6942688423,"adjOpen":88.551823342,"adjVolume":45964294,"divCash":0.0,"splitFactor":1.0},{"date":"2016-02-04T00:00:00.000Z","close":96.6,"high":97.33,"low":95.19,"open":95.86,"volume":46471652,"adjClose":90.5279271892,"adjHigh":91.2120409247,"adjLow":89.2065568234,"adjOpen":89.8344420327,"adjVolume":46471652,"divCash":0.52,"splitFactor":1.0},{"date":"2016-02-05T00:00:00.000Z","close":94.02,"high":96.92,"low":93.69,"open":96.52,"volume":46418064,"adjClose":88.1101005624,"adjHigh":90.8278126623,"adjLow":87.8008436683,"adjOpen":90.4529558209,"adjVolume":46418064,"divCash":0.0,"splitFactor":1.0},{"date":"2016-02-08T00:00:00.000Z","close":95.01,"high":95.7,"low":93.04,"open":93.13,"volume":54021375,"adjClose":89.0378712448,"adjHigh":89.6844992961,"adjLow":87.1917013011,"adjOpen":87.2760440904,"adjVolume":54021375,"divCash":0.0,"splitFactor":1.0},{"date":"2016-02-09T00:00:00.000Z","close":94.99,"high":95.94,"low":93.93,"open":94.29,"volume":44331195,"adjClose":89.0191284027,"adjHigh":89.9094134009,"adjLow":88.0257577731,"adjOpen":88.3631289303,"adjVolume":44331195,"divCash":0.0,"splitFactor":1.0},{"date":"2016-02-10T00:00:00.000Z","close":94.27,"high":96.35,"low":94.1,"open":95.92,"volume":42343601,"adjClose":88.3443860883,"adjHigh":90.2936416633,"adjLow":88.1850719307,"adjOpen":89.8906705589,"adjVolume":42343601,"divCash":0.0,"splitFactor":1.0},{"date":"2016-02-11T00:00:00.000Z","close":93.7,"high":94.72,"low":92.59,"open":93.79,"volume":50074711,"adjClose":87.8102150893,"adjHigh":88.7661000348,"adjLow":86.7699873545,"adjOpen":87.8945578786,"adjVolume":50074711,"divCash":0.0,"splitFactor":1.0},{"date":"2016-02-12T00:00:00.000Z","close":93.99,"high":94.5,"low":93.01,"open":94.19,"volume":40351381,"adjClose":88.0819862993,"adjHigh":88.559928772,"adjLow":87.163587038,"adjOpen":88.26941472,"adjVolume":40351381,"divCash":0.0,"splitFactor":1.0},{"date":"2016-02-16T00:00:00.000Z","close":96.64,"high":96.85,"low":94.61,"open":95.02,"volume":49057916,"adjClose":90.5654128733,"adjHigh":90.762212715,"adjLow":88.6630144034,"adjOpen":89.0472426658,"adjVolume":49057916,"divCash":0.0,"splitFactor":1.0},{"date":"2016-02-17T00:00:00.000Z","close":98.12,"high":98.21,"low":96.15,"open":96.67,"volume":44863243,"adjClose":91.9523831864,"adjHigh":92.0367259757,"adjLow":90.1062132427,"adjOpen":90.5935271364,"adjVolume":44863243,"divCash":0.0,"splitFactor":1.0},{"date":"2016-02-18T00:00:00.000Z","close":96.26,"high":98.89,"low":96.091,"open":98.84,"volume":39020983,"adjClose":90.209298874,"adjHigh":92.673982606,"adjLow":90.0509218586,"adjOpen":92.6271255008,"adjVolume":39020983,"divCash":0.0,"splitFactor":1.0},{"date":"2016-02-19T00:00:00.000Z","close":96.04,"high":96.7599,"low":95.8,"open":96.0,"volume":35374173,"adjClose":90.0031276113,"adjHigh":90.6777762115,"adjLow":89.7782135065,"adjOpen":89.9656419272,"adjVolume":35374173,"divCash":0.0,"splitFactor":1.0},{"date":"2016-02-22T00:00:00.000Z","close":96.88,"high":96.9,"low":95.92,"open":96.31,"volume":34280758,"adjClose":90.7903269781,"adjHigh":90.8090698202,"adjLow":89.8906705589,"adjOpen":90.2561559792,"adjVolume":34280758,"divCash":0.0,"splitFactor":1.0},{"date":"2016-02-23T00:00:00.000Z","close":94.69,"high":96.5,"low":94.55,"open":96.4,"volume":31942633,"adjClose":88.7379857717,"adjHigh":90.4342129789,"adjLow":88.6067858772,"adjOpen":90.3404987685,"adjVolume":31942633,"divCash":0.0,"splitFactor":1.0}]
+const request = async () => {
+    const response = await fetch("aapl.json")
+    const data = await response.json()
 
-const datapoints = {}
+    const responseMeta = await fetch("aapl_meta.json")
+    const meta = await responseMeta.json()
 
-const dates = data.map((date) => {
-    const object = {}
-    object[date["date"].substring(0, 10)] = {
-        close: date["close"],
-        high: date["high"],
-        low: date["low"],
-        open: date["open"]
+    const datapoints = {}
+
+    const dates = data.map((date) => {
+        const object = {}
+        object[date["date"].substring(0, 10)] = {
+            close: date["close"],
+            high: date["high"],
+            low: date["low"],
+            open: date["open"]
+        }
+        Object.assign(datapoints, object)
+        return date["date"].substring(0, 10)
+    })
+
+
+const firstDate = dates[0]
+const lastDate = dates[dates.length -1]
+const tickerName = meta["ticker"]
+const fullName = meta["name"]
+
+const readyData = {
+    dates,
+    stocks: {
+        [tickerName]: {
+            meta: {
+                name: fullName,
+                startDate: firstDate,
+                endDate: lastDate
+            },
+            datapoints: {
+                ...datapoints
+            }
+        }
     }
-    Object.assign(datapoints, object)
-    return date["date"].substring(0, 10)
-})
+}
 
-console.log(datapoints)
-console.log(dates)
+return readyData
 
+
+}
+
+export default request

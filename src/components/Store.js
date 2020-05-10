@@ -7,7 +7,6 @@ const initialState = {
     user: {
         capitalAvailable: 3400.12,
         ownedStocks: {
-            "AMAZ": {numberOfStocks: 2},
         },
         history: {
             valueOfStocks: {
@@ -22,14 +21,14 @@ const initialState = {
         currentDate: "2016-01-04",
         speed: 1,
         paused: true,
-        zoom: 1,
-        chosen: "AMAZ",
+        zoom: 6,
+        chosen: "AAPL",
         interval: undefined
     },
     filter: {
         search: "",
         type: ""
-    }
+    },
 }
 
 export const Store = props => {
@@ -40,4 +39,3 @@ export const Store = props => {
       </StoreContext.Provider>
     );
   };
-

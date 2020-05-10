@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import 'stylesheet/App.css';
 
 function Candle(props) {
+
   const [onMouse, setOnMouse] = useState(false) 
   const lines = []
 
@@ -9,7 +10,6 @@ function Candle(props) {
   if (props.color === "red"){
     color = "#EE5A5A" // red
   }
-
 
   lines.push(
     <line
@@ -31,16 +31,25 @@ function Candle(props) {
       style={{stroke:color,strokeWidth: props.width/5, strokeLinecap:"butt", opacity: (onMouse)?0.2:1}}
       onMouseOver={() => {setOnMouse(true)}}
       onMouseLeave={() => {setOnMouse(false)}}
-    />
+    />,
+    /*<rect
+      x={props.x}
+      y={props.high}
+      width={props.width * 30}
+      height={props.width * 15}
+      rx="15" 
+      style={{
+        visibility: (onMouse)?"visible":"hidden",
+        fill:"black",
+        stroke:"grey",
+        strokeWidth:1,
+        fillOpacity:0.4,
+        strokeOpacity:0.9
+      }}
+      onMouseOver={() => {setOnMouse(true)}}
+      onMouseLeave={() => {setOnMouse(false)}}
+      />*/
   )
-
-  /*
-
-  
-
-    */
-
-
 
   return (
     lines    

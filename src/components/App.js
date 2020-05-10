@@ -1,25 +1,19 @@
-import React from 'react';
-import Sidebar from './Sidebar';
-import GraphContainer from './GraphContainer';
-import Dashboard from './Dashboard';
+import React, { useContext, useState } from 'react';
 import '../stylesheet/App.css';
-import {Store} from './Store';
+import { Store } from './Store';
+import { Data } from './Data';
+import Simulator from './Simulator'
 
 function App() {
+    return (
+      <Data> 
+        <Store>
+          <Simulator />
+        </Store>
+      </Data>
+    )
 
-  return (
-    <Store>
-      <div className="App">
-        <Sidebar />
-        <div className="AppRightSection" id="appright">
-          <GraphContainer />
-          <Dashboard />
-        </div>
-      </div>
-    </Store>
-  )
-}
-
+  }
 
 
 export default App;

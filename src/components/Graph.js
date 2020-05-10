@@ -9,7 +9,7 @@ import { DataContext } from './Data';
 function Graph(props) {
 
   const [state] = useContext(StoreContext);
-  const data = useContext(DataContext);
+  const [data] = useContext(DataContext);
   const container = useContainerSize();
 
   const chosenDatapoints = data.stocks[state.animation.chosen].datapoints
@@ -30,8 +30,8 @@ function Graph(props) {
 
   const padding = {horizontal: container.width / 20, vertical: container.height / 20}
   const renderSize = {width: container.width - padding.horizontal, height: container.height - padding.vertical}
-  const linesY = 7 // 6 but it shouldn't be a constant
-  const linesX = 13 // 6 but it shouldn't be a constant
+  const linesY = 6 // 6 but it shouldn't be a constant
+  const linesX = 16 // 12 but it shouldn't be a constant
   let distance = 0
 
   if (constants.min < 0){

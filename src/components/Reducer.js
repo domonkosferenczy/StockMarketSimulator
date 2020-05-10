@@ -121,6 +121,9 @@ const Reducer = (state, action) => {
                     currentDate: action.payload
                 }
             };
+        case 'SET_DATA':
+            console.log(1)
+            return action.payload
         default:
             return state;
     }
