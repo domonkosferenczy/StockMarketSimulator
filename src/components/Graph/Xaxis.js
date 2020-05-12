@@ -5,12 +5,12 @@ import { DataContext } from 'components/Data';
 
 function Xaxis(props) {
 
-  const [state, dispatch] = useContext(StoreContext);
+  const [state] = useContext(StoreContext);
   const [data] = useContext(DataContext);
 
   const grid = [];
   const paddingY = props.padding.horizontal
-  const paddingX = props.padding.vertical
+  const paddingX = props.padding.vertical + props.renderSize.width / 20
   const allDates = Object.keys(data.stocks[state.animation.chosen].datapoints);
   const date = [];
 
@@ -20,10 +20,10 @@ function Xaxis(props) {
     } catch {  }
   }
 
-  for(let i = 1; i <= props.linesX; i++){
-    const x =  i * props.distX
+  for(let i = 1; i <= props.linesX; i+=2){
+    const x =  i * props.distX - props.distX + paddingX
     const fontCenter = props.renderSize.width / 50
-    const offsetX = + props.renderSize.width / 100
+    const offsetX = props.renderSize.width / 100
 
     grid.push(
       <line
@@ -32,7 +32,7 @@ function Xaxis(props) {
         y1={paddingY}
         x2={x + offsetX}
         y2={props.renderSize.height}
-        style={{fill:"none",stroke:"#777777",strokeWidth: props.renderSize.height/300, strokeLinecap:"round"}}
+        style={{fill:"none",stroke:"#777777",strokeWidth: props.renderSize.height/600, strokeLinecap:"round"}}
       />
     )
 

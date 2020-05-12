@@ -121,6 +121,25 @@ const Reducer = (state, action) => {
                     currentDate: action.payload
                 }
             };
+        case 'SET_SHOWN_FROM':
+        return {
+            ...state,
+            animation: {
+                ...state.animation,
+                shownFrom: action.payload
+            }
+        };
+        case 'GRAPH_MOVE':
+            return {
+                ...state,
+                animation: {
+                    ...state.animation,
+                    currentDate: action.payload.currentDate,
+                    shownFrom: action.payload.shownFromData
+                }
+            }
+
+
         case 'SET_DATA':
             console.log(1)
             return action.payload

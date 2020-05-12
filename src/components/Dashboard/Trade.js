@@ -31,6 +31,7 @@ function Trade() {
   const [localState, setlocalState] = useState(initalState);
 
   const buy = () => {
+    dispatch({type: "SET_PAUSED", payload: true})
     // If there is enough money
     if (state.user.capitalAvailable - localState.buy.value > 0){
       // Increasing capitalAvailaibe
@@ -45,6 +46,7 @@ function Trade() {
     } else {
       // No enough money
     }
+    dispatch({type: "SET_PAUSED", payload: false})
   }
 
   const sell = () => {

@@ -15,12 +15,16 @@ function Graph(props) {
   const chosenDatapoints = data.stocks[state.animation.chosen].datapoints
   const allDates = Object.keys(chosenDatapoints);
   const shownDates = allDates.slice(allDates.indexOf(state.animation.shownFrom), allDates.indexOf(state.animation.currentDate)+1)
+  const shownDataPoints = shownDates.map(date => {
+    return chosenDatapoints[date]
+  })
+
   const constants = {min: Number.MAX_VALUE, max: Number.MIN_VALUE, maxLength: 0}
 
   const listOfNumbers = []
-  shownDates.map(date => {
-    const numbers = Object.keys(chosenDatapoints[date]).map((key) => {
-      return chosenDatapoints[date][key]
+  shownDataPoints.map(date => {
+    const numbers = Object.keys(date).map((key) => {
+      return date[key]
     })
     listOfNumbers.push(...numbers)
   })
@@ -31,7 +35,7 @@ function Graph(props) {
   const padding = {horizontal: container.width / 20, vertical: container.height / 20}
   const renderSize = {width: container.width - padding.horizontal, height: container.height - padding.vertical}
   const linesY = 6 // 6 but it shouldn't be a constant
-  const linesX = 16 // 12 but it shouldn't be a constant
+  const linesX = state.animation.zoom // 12 but it shouldn't be a constant
   let distance = 0
 
   if (constants.min < 0){
@@ -53,7 +57,7 @@ function Graph(props) {
       <svg viewBox={"0 0 " + container.width + " " + container.height} width="100%" height="100%" style={{transform: "rotateZ(180deg) rotateY(180deg)"}} >
         <Xaxis linesX={linesX} distX={distX} distY={distY} padding={padding} width={container.width - padding.horizontal} height={container.height - padding.vertical} constants={constants} renderSize={renderSize} />
         <Yaxis linesY={linesY} constants={constants} distX={distX} distY={distY} padding={padding} renderSize={renderSize} intervalY={intervalY} />
-        <Datapoints difference={difference} distX={distX} linesY={linesY} constants={constants} distY={distY} padding={padding} renderSize={renderSize} intervalY={intervalY} data={data} shownDates={shownDates} />
+        <Datapoints difference={difference} distX={distX} linesX={linesX} linesY={linesY} constants={constants} distY={distY} padding={padding} renderSize={renderSize} intervalY={intervalY} shownDataPoints={shownDataPoints} shownDates={shownDates} />
       </svg>
     </div>
   )

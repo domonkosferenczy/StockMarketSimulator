@@ -13,16 +13,16 @@ function Yaxis(props) {
     const y = props.distY * i + paddingY
     const transform = props.renderSize.height / 10
     const fontCenter = props.renderSize.height / 100
-    const offsetX = + props.renderSize.width / 100
+    const offsetX = paddingX + props.renderSize.width / 20 + props.renderSize.width / 100
 
     grid.push(
       <line 
         key={"Y"+i}
-        x1={props.distX + offsetX}
+        x1={offsetX}
         y1={y}
         x2={props.renderSize.width + paddingX}
         y2={y}
-        style={{fill:"none",stroke:"#777777",strokeWidth: props.renderSize.height/300, strokeLinecap:"round"}}
+        style={{fill:"none",stroke:"#777777",strokeWidth: props.renderSize.height/600, strokeLinecap:"round"}}
       />
     )
     grid.push(

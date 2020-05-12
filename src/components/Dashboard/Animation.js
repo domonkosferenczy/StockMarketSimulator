@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import 'stylesheet/App.css';
 import Faster from 'images/faster.svg'
 import Play from 'images/play.svg'
@@ -13,6 +13,11 @@ function Animation() {
 
   const [state, dispatch] = useContext(StoreContext);
   const [data] = useContext(DataContext);
+  const [active, setActive] = useState(!state.animation.paused)
+
+  const chosenDatapoints = data.stocks[state.animation.chosen].datapoints
+  const allDates = Object.keys(chosenDatapoints);
+  const shownDates = allDates.slice(allDates.indexOf(state.animation.shownFrom), allDates.indexOf(state.animation.currentDate)+1)
   
 
   const ticker = () => {
@@ -20,37 +25,56 @@ function Animation() {
     let nextIndex = data.dates.indexOf(state.animation.currentDate) + dir
     if (nextIndex < data.dates.length && nextIndex >= 0) {
       let nextDate = data.dates[nextIndex]
-      dispatch({type: "SET_CURRENT_DATE", payload: nextDate});
+      if (shownDates.length > (state.animation.zoom -1) * 5){
+        let shownFromDate = data.dates[nextIndex - (state.animation.zoom -1) * 5]
+        dispatch({type: "GRAPH_MOVE", payload: {currentDate: nextDate, shownFromData: shownFromDate}});
+      } else {
+        dispatch({type: "SET_CURRENT_DATE", payload: nextDate});
+      }
     } else {
-      clearInterval(timer)
+      setActive(false)
       dispatch({type: "SET_PAUSED", payload: true})
     }
   }
 
-  let timer
-  if (!state.animation.paused){
-    timer = setTimeout(()=> {ticker()}, 1000 / Math.abs(state.animation.speed));
+  useEffect(() => {
+    let interval
+    if (!state.animation.paused){
+      interval = setInterval(() => {
+      ticker()
+    }, 1000 / Math.abs(state.animation.speed));
+
+    return () => {
+      clearInterval(interval);
+      
+    };
+  } else {
+    clearInterval(interval)
   }
+  });
 
   const changeSpeed = (val) => {
     if (state.animation.speed + val === 0){
-      clearInterval(timer)
+      //clearInterval(timer)
       dispatch({type: 'INCR_SPEED', payload: 2 * val})
+      //clearInterval(timer)
     } else {
-      clearInterval(timer)
+      //clearInterval(timer)
       dispatch({type: 'INCR_SPEED', payload: val})
+      //clearInterval(timer)
+
     }
   }
 
   const changeZoom = (val) => {
     if (val > 0 || state.animation.zoom > 1){
-
       dispatch({type: 'INCR_ZOOM', payload: val})
+      //clearInterval(timer)
     }
   }
 
   const startPause = () => {
-    clearInterval(timer)
+    //clearInterval(timer)
     dispatch({type: 'SET_PAUSED', payload: !state.animation.paused})
   }
 
