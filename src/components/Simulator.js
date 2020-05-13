@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext} from 'react'
 import Sidebar from './Sidebar'
 import GraphContainer from './GraphContainer'
 import Dashboard from './Dashboard'

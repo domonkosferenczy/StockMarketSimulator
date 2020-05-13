@@ -26,12 +26,12 @@ function Trade() {
 
   useEffect(() => {
     setlocalState(initalState)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosen, state.animation.currentDate])
 
   const [localState, setlocalState] = useState(initalState);
 
   const buy = () => {
-    dispatch({type: "SET_PAUSED", payload: true})
     // If there is enough money
     if (state.user.capitalAvailable - localState.buy.value > 0){
       // Increasing capitalAvailaibe

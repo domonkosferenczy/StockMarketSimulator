@@ -1,8 +1,5 @@
-import React, { useLayoutEffect, useState, useContext, useEffect} from 'react';
+import React from 'react';
 import Graph from './Graph'
-import 'stylesheet/App.css';
-import { StoreContext } from './Store';
-import { DataContext } from './Data';
 
 function GraphContainer() {
   

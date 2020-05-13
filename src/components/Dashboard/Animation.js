@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import 'stylesheet/App.css';
 import Faster from 'images/faster.svg'
 import Play from 'images/play.svg'
@@ -13,26 +13,23 @@ function Animation() {
 
   const [state, dispatch] = useContext(StoreContext);
   const [data] = useContext(DataContext);
-  const [active, setActive] = useState(!state.animation.paused)
 
   const chosenDatapoints = data.stocks[state.animation.chosen].datapoints
   const allDates = Object.keys(chosenDatapoints);
   const shownDates = allDates.slice(allDates.indexOf(state.animation.shownFrom), allDates.indexOf(state.animation.currentDate)+1)
-  
 
   const ticker = () => {
     let dir = (state.animation.speed < 0)?-1:1
     let nextIndex = data.dates.indexOf(state.animation.currentDate) + dir
     if (nextIndex < data.dates.length && nextIndex >= 0) {
       let nextDate = data.dates[nextIndex]
-      if (shownDates.length > (state.animation.zoom -1) * 5){
-        let shownFromDate = data.dates[nextIndex - (state.animation.zoom -1) * 5]
+      if (shownDates.length > 12 * (state.animation.zoom / 10)){
+        let shownFromDate = data.dates[nextIndex -  12 * (state.animation.zoom / 10)]
         dispatch({type: "GRAPH_MOVE", payload: {currentDate: nextDate, shownFromData: shownFromDate}});
       } else {
         dispatch({type: "SET_CURRENT_DATE", payload: nextDate});
       }
     } else {
-      setActive(false)
       dispatch({type: "SET_PAUSED", payload: true})
     }
   }
@@ -55,26 +52,19 @@ function Animation() {
 
   const changeSpeed = (val) => {
     if (state.animation.speed + val === 0){
-      //clearInterval(timer)
       dispatch({type: 'INCR_SPEED', payload: 2 * val})
-      //clearInterval(timer)
     } else {
-      //clearInterval(timer)
       dispatch({type: 'INCR_SPEED', payload: val})
-      //clearInterval(timer)
-
     }
   }
 
   const changeZoom = (val) => {
-    if (val > 0 || state.animation.zoom > 1){
+    if (val > 0 || state.animation.zoom > 10){
       dispatch({type: 'INCR_ZOOM', payload: val})
-      //clearInterval(timer)
     }
   }
 
   const startPause = () => {
-    //clearInterval(timer)
     dispatch({type: 'SET_PAUSED', payload: !state.animation.paused})
   }
 
@@ -83,14 +73,19 @@ function Animation() {
     dispatch({type: 'SET_CURRENT_DATE', payload: date})
   }
 
+  const swtichCandles = () => {
+    const switcher = !state.animation.candle
+    dispatch({type: 'SET_CANDLE', payload: switcher})
+  }
+
   return (
     <div className="Animation">
     ANIMATION
     <div className="DashboardButtons">
       <div className="AnimationButtons">
         <div className="AnimationButtons-plusMinus">
-          <button onClick={() => changeZoom(1)}><img src={Plus} alt="Plus" /></button>
-          <button onClick={() => changeZoom(-1)}><img src={Minus} alt="Minus" /></button>
+          <button onClick={() => changeZoom(10)}><img src={Plus} alt="Plus" /></button>
+          <button onClick={() => changeZoom(-10)}><img src={Minus} alt="Minus" /></button>
         </div>
         <button onClick={() => jumpTo("start")} ><img src={PlayEnd} alt="PlayEndBack" style={{transform: "rotateZ(180deg)"}} /></button>
         <button onClick={() => changeSpeed(-1)} ><img src={Faster} alt="Slower" style={{transform: "rotateZ(180deg)"}} /></button>
@@ -103,6 +98,7 @@ function Animation() {
       <div>SPEED: {state.animation.speed + "x" + ((state.animation.paused)?" PAUSED":"")}</div>
       <div>ZOOM: {state.animation.zoom}x</div>
       <div>SHOWN: 148 days</div>
+      <div>CANDLES: <button onClick={swtichCandles} className="Dashboard-button">{(state.animation.candle)?"ON":"OFF"}</button></div>
     </div>
   </div>
   )

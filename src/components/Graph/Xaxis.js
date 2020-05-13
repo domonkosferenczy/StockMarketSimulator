@@ -14,14 +14,14 @@ function Xaxis(props) {
   const allDates = Object.keys(data.stocks[state.animation.chosen].datapoints);
   const date = [];
 
-  for(let i = 0; i <= allDates.length; i+=5){
+  for(let i = 0; i <= allDates.length; i += (state.animation.zoom / 10)){
     try {
       date.push(allDates[i].slice(5).replace("-", ". ") + ".")
     } catch {  }
   }
 
-  for(let i = 1; i <= props.linesX; i+=2){
-    const x =  i * props.distX - props.distX + paddingX
+  for(let i = 0; i <= 13; i++){
+    const x =  i * props.renderSize.width / props.linesX + paddingX 
     const fontCenter = props.renderSize.width / 50
     const offsetX = props.renderSize.width / 100
 
@@ -43,7 +43,7 @@ function Xaxis(props) {
         y={paddingY / 2}
         style={{transform: "rotateX(180deg) rotateZ(-45deg)", transformOrigin: "center center", transformBox: "fill-box", fontSize: props.renderSize.height/30 + "px",fill:"#ffffff"}}
       >
-        {date[i-1]}
+        {date[i]}
       </text>
     )
   }

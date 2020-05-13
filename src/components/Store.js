@@ -19,11 +19,11 @@ const initialState = {
     animation: {
         shownFrom: "2016-01-04",
         currentDate: "2016-01-04",
-        speed: 50,
+        speed: 10,
         paused: true,
-        zoom: 200,
+        zoom: 30,
         chosen: "AAPL",
-        interval: undefined
+        candle: true     
     },
     filter: {
         search: "",

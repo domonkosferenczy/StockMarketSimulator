@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState, useContext, useEffect} from 'react';
+import React, { useLayoutEffect, useState, useContext} from 'react';
 import Xaxis from './Graph/Xaxis'
 import Yaxis from './Graph/Yaxis'
 import Datapoints from './Graph/Datapoints'
@@ -27,6 +27,7 @@ function Graph(props) {
       return date[key]
     })
     listOfNumbers.push(...numbers)
+    return ""
   })
 
   constants.min = Math.min(...listOfNumbers) - Math.min(...listOfNumbers) / 10
@@ -35,7 +36,7 @@ function Graph(props) {
   const padding = {horizontal: container.width / 20, vertical: container.height / 20}
   const renderSize = {width: container.width - padding.horizontal, height: container.height - padding.vertical}
   const linesY = 6 // 6 but it shouldn't be a constant
-  const linesX = state.animation.zoom // 12 but it shouldn't be a constant
+  const linesX = 13 // 12 but it shouldn't be a constant
   let distance = 0
 
   if (constants.min < 0){

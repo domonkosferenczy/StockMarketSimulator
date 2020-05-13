@@ -7,7 +7,6 @@ function Yaxis(props) {
   const grid = [];
   const paddingY = props.padding.horizontal
   const paddingX = props.padding.vertical
-  const TitlelayoutUnit = 10
 
   for(let i = 0; i <= props.linesY; i++){
     const y = props.distY * i + paddingY

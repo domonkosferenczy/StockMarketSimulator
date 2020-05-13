@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import '../stylesheet/App.css';
 import { Store } from './Store';
 import { Data } from './Data';
