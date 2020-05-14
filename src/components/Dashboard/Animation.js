@@ -87,6 +87,9 @@ function Animation() {
     } else {
       currentDate = data.dates[data.dates.length -1]
       shownFrom = data.dates[data.dates.length -1 - 12 * Math.round(Math.round(allDates.length / 12) / (state.animation.zoom))]
+      if (shownFrom === undefined){
+        shownFrom = data.dates[0]
+      }
     }    
     dispatch({type: "GRAPH_MOVE", payload: {currentDate: currentDate, shownFromData: shownFrom}});
   }
