@@ -35,8 +35,8 @@ function Graph(props) {
 
   const padding = {horizontal: container.width / 20, vertical: container.height / 20}
   const renderSize = {width: container.width - padding.horizontal, height: container.height - padding.vertical}
-  const linesY = 6 // 6 but it shouldn't be a constant
-  const linesX = 13 // 12 but it shouldn't be a constant
+  const linesY = 6
+  const linesX = 13
   let distance = 0
 
   if (constants.min < 0){
@@ -51,13 +51,11 @@ function Graph(props) {
   const distX = renderSize.width / linesX
   const intervalY = difference
   
-
-
   return (
     <div className="Graph">
       <svg viewBox={"0 0 " + container.width + " " + container.height} width="100%" height="100%" style={{transform: "rotateZ(180deg) rotateY(180deg)"}} >
         <Xaxis linesX={linesX} distX={distX} distY={distY} padding={padding} width={container.width - padding.horizontal} height={container.height - padding.vertical} constants={constants} renderSize={renderSize} />
-        <Yaxis linesY={linesY} constants={constants} distX={distX} distY={distY} padding={padding} renderSize={renderSize} intervalY={intervalY} />
+        <Yaxis shownDates={shownDates} linesY={linesY} constants={constants} distX={distX} distY={distY} padding={padding} renderSize={renderSize} intervalY={intervalY} />
         <Datapoints difference={difference} distX={distX} linesX={linesX} linesY={linesY} constants={constants} distY={distY} padding={padding} renderSize={renderSize} intervalY={intervalY} shownDataPoints={shownDataPoints} shownDates={shownDates} />
       </svg>
     </div>

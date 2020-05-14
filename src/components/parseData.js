@@ -1,8 +1,32 @@
-const request = async () => {
-    const response = await fetch("aapl.json")
+const requestAll = async () => {
+    const response = await fetch("all.json")
     const data = await response.json()
 
-    const responseMeta = await fetch("aapl_meta.json")
+    const tickers = data.tickers
+
+    const allData = {
+        dates: [],
+        stocks: {
+
+        }
+    }
+    for (let i = 0; i <= tickers.length -1; i++){
+        const requestStockData = await requestStock(tickers[i])
+        allData.dates = requestStockData.dates
+        Object.assign(allData.stocks, requestStockData.stocks)
+    }
+
+    console.log(allData)
+
+
+    return allData
+}
+
+const requestStock = async (ticker) => {
+    const response = await fetch(`${ticker}.json`)
+    const data = await response.json()
+
+    const responseMeta = await fetch(`${ticker}_meta.json`)
     const meta = await responseMeta.json()
 
     const datapoints = {}
@@ -46,4 +70,4 @@ return readyData
 
 }
 
-export default request
+export default requestAll

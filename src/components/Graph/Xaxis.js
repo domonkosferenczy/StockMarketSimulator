@@ -12,11 +12,12 @@ function Xaxis(props) {
   const paddingY = props.padding.horizontal
   const paddingX = props.padding.vertical + props.renderSize.width / 20
   const allDates = Object.keys(data.stocks[state.animation.chosen].datapoints);
+  const shownDates = allDates.slice(allDates.indexOf(state.animation.shownFrom));
   const date = [];
 
-  for(let i = 0; i <= allDates.length; i += (state.animation.zoom / 10)){
+  for(let i = 0; i <= shownDates.length -1; i += Math.round(Math.round(allDates.length / 12) / (state.animation.zoom))){
     try {
-      date.push(allDates[i].slice(5).replace("-", ". ") + ".")
+      date.push(shownDates[i].slice(5).replace("-", ". ") + ".")
     } catch {  }
   }
 

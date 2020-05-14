@@ -23,8 +23,11 @@ function Animation() {
     let nextIndex = data.dates.indexOf(state.animation.currentDate) + dir
     if (nextIndex < data.dates.length && nextIndex >= 0) {
       let nextDate = data.dates[nextIndex]
-      if (shownDates.length > 12 * (state.animation.zoom / 10)){
-        let shownFromDate = data.dates[nextIndex -  12 * (state.animation.zoom / 10)]
+      if (shownDates.length > 12 * Math.round(Math.round(allDates.length / 12) / (state.animation.zoom))){
+        let shownFromDate = data.dates[nextIndex - 12 * Math.round(Math.round(allDates.length / 12) / (state.animation.zoom))]
+        if (shownFromDate === undefined) {
+          shownFromDate = data.dates[0]
+        }
         dispatch({type: "GRAPH_MOVE", payload: {currentDate: nextDate, shownFromData: shownFromDate}});
       } else {
         dispatch({type: "SET_CURRENT_DATE", payload: nextDate});
@@ -59,8 +62,14 @@ function Animation() {
   }
 
   const changeZoom = (val) => {
-    if (val > 0 || state.animation.zoom > 10){
+    if ((val > 0 && state.animation.zoom < 10) || (val < 0 && state.animation.zoom >= 2)){
       dispatch({type: 'INCR_ZOOM', payload: val})
+      const currentDate = state.animation.currentDate
+      let shownFromData = data.dates[(data.dates.indexOf(currentDate)) - 12 * Math.round(Math.round(allDates.length / 12) / (state.animation.zoom + val))]
+      if (shownFromData === undefined) {
+        shownFromData = data.dates[0]
+      }
+      dispatch({type: 'GRAPH_MOVE', payload: {currentDate: currentDate, shownFromData: shownFromData}})
     }
   }
 
@@ -69,8 +78,17 @@ function Animation() {
   }
 
   const jumpTo = to => {
-    let date = data.dates[(to === "start")?0:data.dates.length-1]
-    dispatch({type: 'SET_CURRENT_DATE', payload: date})
+    let currentDate
+    let shownFrom
+    dispatch({type: 'SET_PAUSED', payload: true})
+    if (to === "start"){
+      currentDate = data.dates[0]
+      shownFrom = allDates[0]
+    } else {
+      currentDate = data.dates[data.dates.length -1]
+      shownFrom = data.dates[data.dates.length -1 - 12 * Math.round(Math.round(allDates.length / 12) / (state.animation.zoom))]
+    }    
+    dispatch({type: "GRAPH_MOVE", payload: {currentDate: currentDate, shownFromData: shownFrom}});
   }
 
   const swtichCandles = () => {
@@ -84,8 +102,8 @@ function Animation() {
     <div className="DashboardButtons">
       <div className="AnimationButtons">
         <div className="AnimationButtons-plusMinus">
-          <button onClick={() => changeZoom(10)}><img src={Plus} alt="Plus" /></button>
-          <button onClick={() => changeZoom(-10)}><img src={Minus} alt="Minus" /></button>
+          <button onClick={() => changeZoom(1)}><img src={Plus} alt="Plus" /></button>
+          <button onClick={() => changeZoom(-1)}><img src={Minus} alt="Minus" /></button>
         </div>
         <button onClick={() => jumpTo("start")} ><img src={PlayEnd} alt="PlayEndBack" style={{transform: "rotateZ(180deg)"}} /></button>
         <button onClick={() => changeSpeed(-1)} ><img src={Faster} alt="Slower" style={{transform: "rotateZ(180deg)"}} /></button>

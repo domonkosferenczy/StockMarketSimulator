@@ -21,7 +21,7 @@ const initialState = {
         currentDate: "2016-01-04",
         speed: 10,
         paused: true,
-        zoom: 30,
+        zoom: 10,
         chosen: "AAPL",
         candle: true     
     },

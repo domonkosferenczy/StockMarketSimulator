@@ -46,7 +46,6 @@ function Trade() {
     } else {
       // No enough money
     }
-    dispatch({type: "SET_PAUSED", payload: false})
   }
 
   const sell = () => {

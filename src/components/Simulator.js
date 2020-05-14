@@ -3,7 +3,7 @@ import Sidebar from './Sidebar'
 import GraphContainer from './GraphContainer'
 import Dashboard from './Dashboard'
 import { DataContext } from './Data'
-import request from './parseData'
+import requestAll from './parseData'
 
 function Simulator() {
 
@@ -11,7 +11,7 @@ function Simulator() {
 
   
     const loadData = async () => {
-      const date = await request()
+      const date = await requestAll()
       dispatch({type: "SET_DATA", payload: date})
     }
     
