@@ -149,7 +149,6 @@ const Reducer = (state, action) => {
 
 
         case 'SET_DATA':
-            console.log(1)
             return action.payload
         default:
             return state;

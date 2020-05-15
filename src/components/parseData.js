@@ -16,8 +16,6 @@ const requestAll = async () => {
         Object.assign(allData.stocks, requestStockData.stocks)
     }
 
-    console.log(allData)
-
 
     return allData
 }
