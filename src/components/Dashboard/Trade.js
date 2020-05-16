@@ -1,20 +1,20 @@
 import React, {useContext, useState, useEffect} from 'react';
-import 'stylesheet/App.css';
-import { StoreContext } from 'components/Store';
-import { DataContext } from 'components/Data';
-import { formatMoney, formatDoubleNumbers } from 'components/calculations'
+import { StoreContext } from 'components/Store/Store';
+import { DataContext } from 'components/Store/Data';
+import { formatMoney, formatDoubleNumbers } from 'components/Global_Components/calculations'
 
 function Trade() {
-
   const [state, dispatch] = useContext(StoreContext);
   const [data] = useContext(DataContext);
 
+  // Constants for data
   const chosen = state.animation.chosen
   const currentDate = state.animation.currentDate
   const currentDataPoint = data.stocks[chosen].datapoints[currentDate]
   const ownedStocks = state.user.ownedStocks
   const includesChosen = Object.keys(ownedStocks).includes(chosen)
 
+  // State for input handling
   const initalState = {
     buy: {
       count: 1,
@@ -30,6 +30,7 @@ function Trade() {
 
   const [localState, setlocalState] = useState(initalState);
 
+  // Buy handling 
   const buy = () => {
     // If there is enough money
     if (state.user.capitalAvailable - localState.buy.value > 0){
@@ -47,6 +48,7 @@ function Trade() {
     }
   }
 
+  // Sell handling
   const sell = () => {
     if (includesChosen){
       if (ownedStocks[chosen].numberOfStocks >= localState.sell.count){
@@ -60,6 +62,7 @@ function Trade() {
       }
     }
 
+  // Input handling
   const changeInput = (event) => {
     const id = event.target.id;
     let inputVal = parseInt(event.target.value);
@@ -82,6 +85,7 @@ function Trade() {
     })
   }
 
+  // Focus handling
   const setFocus = (event, focusVal) => {
     const id = event.target.id;
     let count
@@ -103,6 +107,7 @@ function Trade() {
     })
   }
 
+  // Recalulating values
   useEffect(() => {
     const calVal = (id) => localState[id].count * currentDataPoint.close
     const valBuy = calVal("buy")
@@ -113,7 +118,7 @@ function Trade() {
     if (!includesChosen){
       countSell = 0
     } else {
-      if (ownedStocks[chosen].numberOfStocks < countSell || countSell === 0) {
+      if (ownedStocks[chosen].numberOfStocks < countSell) {
         countSell = ownedStocks[chosen].numberOfStocks
       }
     }
@@ -134,7 +139,7 @@ function Trade() {
     })
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [localState.buy.count, localState.sell.count, state.user.ownedStocks])
+  }, [localState.buy.count, localState.sell.count, state.user.ownedStocks, state.animation.chosen])
 
 
   let stock = {numberOfStocks: 0}
@@ -142,18 +147,40 @@ function Trade() {
     stock = ownedStocks[chosen]
   }
 
+  const calCount = which => (localState[which].focus)?localState[which].count:formatDoubleNumbers(localState[which].count)
+  const buyCount = calCount("buy")
+  const sellCount = calCount("sell")
+
   return (
     <div className="Trade">
       TRADE
       <div className="DashboardButtons">
         <div className="TradeButtons">
-          <span>${formatMoney(localState.buy.value)}</span>
-          <input type="text" id="buy" onChange={changeInput} onBlur={(e) => {setFocus(e, false)}} onFocus={(e) => {setFocus(e, true)}} value={(localState.buy.focus)?localState.buy.count:formatDoubleNumbers(localState.buy.count)} />
+          <span>
+            ${formatMoney(localState.buy.value)}
+          </span>
+          <input 
+            type="text"
+            id="buy"
+            onChange={changeInput}
+            onBlur={(e) => {setFocus(e, false)}}
+            onFocus={(e) => {setFocus(e, true)}}
+            value={buyCount}
+          />
           <button onClick={buy} id="buy" className="BuyAndSell">BUY</button>
         </div>
         <div>
-          <span>${formatMoney(localState.sell.value)}</span>
-          <input type="text" id="sell" onChange={changeInput} onBlur={(e) => {setFocus(e, false)}} onFocus={(e) => {setFocus(e, true)}} value={(localState.sell.focus)?localState.sell.count:formatDoubleNumbers(localState.sell.count)} />
+          <span>
+            ${formatMoney(localState.sell.value)}
+          </span>
+          <input
+            type="text"
+            id="sell"
+            onChange={changeInput}
+            onBlur={(e) => {setFocus(e, false)}}
+            onFocus={(e) => {setFocus(e, true)}}
+            value={sellCount}
+          />
           <button onClick={sell} id="sell" className="BuyAndSell">SELL</button>
         </div>
       </div>

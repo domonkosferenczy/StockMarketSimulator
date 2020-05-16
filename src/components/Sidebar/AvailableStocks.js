@@ -1,7 +1,7 @@
 import React from 'react';
 import StocksFilter from './StocksFilter'
 import StocksList from './StocksList'
-import 'stylesheet/App.css';
+
 
 function AvailableStocks() {
   return (

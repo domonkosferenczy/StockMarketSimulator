@@ -146,8 +146,8 @@ const Reducer = (state, action) => {
                     candle: action.payload
                 }
             }
-
-
+        
+        // Reducer for the Data.js
         case 'SET_DATA':
             return action.payload
         default:

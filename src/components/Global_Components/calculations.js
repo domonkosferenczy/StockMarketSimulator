@@ -1,6 +1,13 @@
 export const formatDate = date =>{
     let parts = date.split("-");
-    return formatDoubleNumbers(parts[0]) + ". " + formatDoubleNumbers(parts[1]) + ". " + formatDoubleNumbers(parts[2]) + "."
+    return (
+        formatDoubleNumbers(parts[0]) + 
+        ". " + 
+        formatDoubleNumbers(parts[1]) + 
+        ". " + 
+        formatDoubleNumbers(parts[2]) + 
+        "."
+    )
 }
 
 export const formatDoubleNumbers = number => {
@@ -42,7 +49,8 @@ export const formatMoney = money => {
     
 }
 
-export const DateNextDay = currentDate => {
+// Not used functions
+/*export const DateNextDay = currentDate => {
     let day = new Date(currentDate);
     let nextDay = new Date(day);
     nextDay.setDate(day.getDate() + 1);
@@ -54,4 +62,4 @@ export const DatePrevDay = currentDate => {
     let nextDay = new Date(day);
     nextDay.setDate(day.getDate() - 1);
     return nextDay.getFullYear() + "-" + formatDoubleNumbers(nextDay.getMonth() + 1) + "-" + formatDoubleNumbers(nextDay.getDate())
-}
+}*/

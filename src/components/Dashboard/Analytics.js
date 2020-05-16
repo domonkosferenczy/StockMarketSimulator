@@ -1,5 +1,4 @@
 import React from 'react';
-import 'stylesheet/App.css';
 
 function Analytics() {
   return (

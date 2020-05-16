@@ -36,6 +36,15 @@ code {
   
 }
 
+.Loading {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px
+}
+
 .AppRightSection {
   display: flex;
   flex-direction: column;
@@ -325,6 +334,10 @@ code {
   height: 10px;
 }
 
+.reverseImg {
+  transform: rotateZ(180deg)
+}
+
 .GraphContainer {
   min-height: 70%;
   background: var(--lightenGrey);
@@ -336,21 +349,12 @@ code {
   flex-direction: column;
 }
 
-.Graph {
-
-}
 
 .GraphTicker {
   text-align: center;
   font-size: 2em;
   font-weight: bold;
 }
-
-svg {
-  
-}
-
-
 
 .DashboardButtons button:after {
   content: "";

@@ -1,40 +1,54 @@
 import React, { useContext } from 'react';
 import Candle from './Candle'
-import 'stylesheet/App.css';
-import { StoreContext } from 'components/Store';
-import { DataContext } from 'components/Data';
+import { StoreContext } from 'components/Store/Store';
 
-function Datapoints(props) {
-
+function Datapoints(p) {
   const [state] = useContext(StoreContext)
-  const [data] = useContext(DataContext)
 
-  const chosenDatapoints = data.stocks[state.animation.chosen].datapoints
-  const allDates = Object.keys(chosenDatapoints);
+  const props = p.propsInObject;
 
+  // Constants for graphical
   const paddingY = props.padding.horizontal
-  const paddingX = props.padding.vertical
-  const offsetX = paddingX + props.renderSize.width / 100 + props.renderSize.width / 20
-  
+  const offsetX = props.offsetX
+  const zoomRatio = props.zoomRatio
+  const width = props.renderSize.width / zoomRatio / 20
+
+  // Constants for style
+  const polylineStyle = {
+    strokeWidth: props.renderSize.width / 500
+  }
+
+  // Constants for data
   const datapoints = props.shownDataPoints
+
+  // Declaring variables for the point graph
   let pointsGon = `${offsetX}, ${paddingY} `
   let pointsLine = ""
 
-  const zoomRatio = Math.round(Math.round(allDates.length / 12) / (state.animation.zoom))
+  // Functions to calculate X and Y values
+  const calX = index => (index * props.renderSize.width / props.lines.X / zoomRatio + offsetX)
+  const calY = value => ((value - props.min) / props.intervalY * props.distY + paddingY)
+
+  // Rendering candles and graph points
   const candles = datapoints.map((datapoint, index) => {
     let color = "green"
     if (index-1 >= 0 && datapoints[index-1].close > datapoint.close){
       color = "red"
     }
     
-    
-    const x = index * props.renderSize.width / props.linesX / zoomRatio + offsetX
-    const close = (datapoint.close - props.constants.min) / props.intervalY * props.distY + paddingY
-    const open = (datapoint.open - props.constants.min) / props.intervalY * props.distY + paddingY
-    const high = (datapoint.high - props.constants.min) / props.intervalY * props.distY + paddingY
-    const low = (datapoint.low - props.constants.min) / props.intervalY * props.distY + paddingY
-    pointsGon += "" + x + "," + close + " "
-    pointsLine += "" + x + "," + close + " "
+    // Calculating X and Y values
+    const x = calX(index)
+    const close = calY(datapoint.close)
+    const open = calY(datapoint.open)
+    const high = calY(datapoint.high)
+    const low = calY(datapoint.low)
+
+    // Adding values for the point graph
+    if (!state.animation.candle) {
+      pointsGon += "" + x + "," + close + " "
+      pointsLine += "" + x + "," + close + " "
+    }
+
     return (
       <Candle
         key={"C"+index}
@@ -44,24 +58,26 @@ function Datapoints(props) {
         low={low}
         open={open}
         color={color}
-        width={props.renderSize.width / zoomRatio / 20}
+        width={width}
       />
     )
   })
-  pointsGon += `${(datapoints.length-1) * props.renderSize.width / props.linesX / zoomRatio + offsetX} ,${paddingY}`
 
+  // Rendering the candles or the point graph
   if (!state.animation.candle){
-  return ([
-    <polygon points={pointsGon} key="TESZT"
-      style={{fill:"rgba(57, 207, 68, 0.54)",opacity: 1,stroke:"transparent",strokeWidth:0}} />,
-    <polyline points={pointsLine} key="TESZT2"
-      style={{fill: "transparent",stroke:"white",strokeWidth:props.renderSize.width / 500}}
-    />
-  ]
-    )
-} else {
-  return candles
-}
+    
+    // Adding the last point to the polygon
+    pointsGon += `${calX(datapoints.length -1)} ,${paddingY}`
+
+    return ([
+      <polygon points={pointsGon} key="polygon" className="Polygon" />,
+      <polyline points={pointsLine} key="polyline" className="Polyline" style={polylineStyle} />
+    ])
+
+  } else {
+    return candles
+  }
+
 }
 
 export default Datapoints;

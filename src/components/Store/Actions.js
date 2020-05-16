@@ -1,0 +1,6 @@
+export const GRAPH_MOVE = "GRAPH_MOVE"
+export const SET_CURRENT_DATE = "SET_CURRENT_DATE"
+export const SET_PAUSED = "SET_PAUSED"
+export const INCR_SPEED = "INCR_SPEED"
+export const INCR_ZOOM = "INCR_ZOOM"
+export const SET_CANDLE = "SET_CANDLE"

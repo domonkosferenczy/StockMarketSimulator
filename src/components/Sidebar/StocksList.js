@@ -1,58 +1,78 @@
 import React, { useContext } from 'react';
 import StocksListElement from 'components/Sidebar/StocksListElement'
-import 'stylesheet/App.css';
-import {StoreContext} from 'components/Store'
-import {DataContext} from 'components/Data'
+import { StoreContext } from 'components/Store/Store'
+import { DataContext } from 'components/Store/Data'
 
 function StocksList() {
-
   const [state] = useContext(StoreContext);
   const [data] = useContext(DataContext);
 
-  let items = 0;
+  // Constans for data
+  const filterType = state.filter.type
+  const filterSearch = state.filter.search
+  const currentDate = state.animation.currentDate
+  const ownedStocks = state.user.ownedStocks;
+  const ownedStocksKeys = Object.keys(state.user.ownedStocks);
+  let countOfItems = 0;
 
+  // Rendering the items
   const StocksListElements = Object.keys(data.stocks).map((stock) => {
-    //Filter
-    const filterType = state.filter.type
-    const currentDate = state.animation.currentDate
 
-    if (state.filter.search === "" || state.filter.search === undefined || stock.includes(state.filter.search.toUpperCase())){
-      items++;
-      const stockData = data.stocks[stock].datapoints
-      const price = stockData[currentDate].close;
-      const ownedStocks = Object.keys(state.user.ownedStocks);
+    // Constants of a stock
+    const stockData = data.stocks[stock].datapoints
+    const currentPrice = stockData[currentDate].close;
+    let owned = 0;
+    let value = 0;
+    let dir = "line";
 
-      if ((filterType === "owned" && ownedStocks.includes(stock)) || (filterType !== "owned")){
-        let owned = 0;
-        let value = 0;
-        let dir;
-        let prevDate = data.dates[(data.dates.indexOf(currentDate) -1)]
-        if (prevDate === undefined){
-          prevDate = currentDate
-        }
-        if (stockData[currentDate].close > stockData[prevDate].close){
-          dir = "up"
-        } else if(stockData[currentDate].close < stockData[prevDate].close){
-          dir = "down"
-        } else {
-          dir = "line"
-        }
-        if (filterType === dir || filterType === "" || filterType === "owned"){
-          if (ownedStocks.includes(stock)){
-            owned = state.user.ownedStocks[stock].numberOfStocks
-            value = owned * stockData[currentDate].close
-          }
-          const chosen = (state.animation.chosen === stock)
-          return <StocksListElement key={stock} stock={stock} ticker={stock} price={`${price}`} owned={owned} value={`${value}`} chosen={chosen} dir={dir}/>
-        }
-      }
+    // Filter conditions
+    const TextCondition = filterSearch === "" || stock.includes(filterSearch.toUpperCase())
+    const OwnedCondition = (filterType === "owned" && ownedStocksKeys.includes(stock) && ownedStocks[stock].numberOfStocks > 0) || (filterType !== "owned")
+    const ArrowCondition = filterType === dir || filterType === "" || filterType === "owned"
+
+    // Setting Arrow direction
+    let prevDate = data.dates[(data.dates.indexOf(currentDate) -1)]
+    if (prevDate === undefined){
+      prevDate = currentDate
     }
-    return ""
+    if (currentPrice > stockData[prevDate].close){
+      dir = "up"
+    } else if(currentPrice < stockData[prevDate].close){
+      dir = "down"
+    }
+
+    // Filtering
+    if (TextCondition && OwnedCondition && ArrowCondition){
+
+      // Calculating owned and value
+      if (ownedStocksKeys.includes(stock)){
+        owned = ownedStocks[stock].numberOfStocks
+        value = owned * currentPrice
+      }
+      
+      const chosen = (state.animation.chosen === stock)
+      countOfItems++;
+      
+      return (
+        <StocksListElement
+          key={"ListElement-" + stock}
+          stock={stock}
+          ticker={stock}
+          price={currentPrice}
+          owned={owned}
+          value={value}
+          chosen={chosen}
+          dir={dir}
+        />
+      )
+    
+    }
+    return null
   })
 
   return (
     <div className="StocksList">
-      {(items > 0)?StocksListElements:"No found"}
+      {(countOfItems > 0)?StocksListElements:"No found"}
     </div>
   )
 }
