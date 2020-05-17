@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Arrow from '../Global_Components/Arrow'
-
+import { SET_FILTER_INPUT, SET_FILTER_TYPE } from 'components/Store/Actions'
 import { StoreContext } from 'components/Store/Store';
 
 function StocksFilter() {
@@ -10,14 +10,14 @@ function StocksFilter() {
 
   // Setting the chosen filter input in global state
   const handleChangeInput = (event) => {
-    let val = event.target.value;
-    dispatch({type: "SET_FILTER_INPUT", payload: val})
+    const val = event.target.value;
+    dispatch({type: SET_FILTER_INPUT, payload: val})
   }
 
   // Setting the filter type in global state
   const filterClick = mode => {
     mode = (filterType === mode)?"":mode
-    dispatch({type: "SET_FILTER_TYPE", payload: mode})
+    dispatch({type: SET_FILTER_TYPE, payload: mode})
   }
 
   // Returns with a className if chosen or not

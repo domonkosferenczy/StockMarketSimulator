@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import Arrow from '../Global_Components/Arrow';
 import { StoreContext } from 'components/Store/Store'
 import { formatMoney } from 'components/Global_Components/calculations'
+import { SET_CHOSEN } from 'components/Store/Actions'
 
 
 function StocksListElement(props){
@@ -13,7 +14,7 @@ function StocksListElement(props){
 
     // Function for click handling
     const chosing = stock => {
-        dispatch({type: "SET_CHOSEN", payload: stock})
+        dispatch({type: SET_CHOSEN, payload: stock})
     }
 
     return (

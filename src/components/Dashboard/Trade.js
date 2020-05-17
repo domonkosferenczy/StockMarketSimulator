@@ -2,6 +2,7 @@ import React, {useContext, useState, useEffect} from 'react';
 import { StoreContext } from 'components/Store/Store';
 import { DataContext } from 'components/Store/Data';
 import { formatMoney, formatDoubleNumbers } from 'components/Global_Components/calculations'
+import { INCR_CAPITAL, INCR_OWNED_STOCKS, ADD_OWNED_STOCKS } from 'components/Store/Actions'
 
 function Trade() {
   const [state, dispatch] = useContext(StoreContext);
@@ -35,13 +36,13 @@ function Trade() {
     // If there is enough money
     if (state.user.capitalAvailable - localState.buy.value > 0){
       // Increasing capitalAvailaibe
-      dispatch({type: 'INCR_CAPITAL', payload: -1 * localState.buy.value});
+      dispatch({type: INCR_CAPITAL, payload: -1 * localState.buy.value});
       if (includesChosen){
         // There is an owned stock like the chosenn
-        dispatch({type: 'INCR_OWNED_STOCKS', payload: {ticker: chosen, number: localState.buy.count}});
+        dispatch({type: INCR_OWNED_STOCKS, payload: {ticker: chosen, number: localState.buy.count}});
       } else {
           // Adding the new owned stock element
-          dispatch({type: 'ADD_OWNED_STOCKS', payload: {ticker: chosen, number: localState.buy.count}});
+          dispatch({type: ADD_OWNED_STOCKS, payload: {ticker: chosen, number: localState.buy.count}});
         }
     } else {
       // No enough money
@@ -52,8 +53,8 @@ function Trade() {
   const sell = () => {
     if (includesChosen){
       if (ownedStocks[chosen].numberOfStocks >= localState.sell.count){
-        dispatch({type: 'INCR_OWNED_STOCKS', payload: {ticker: chosen, number: -1 * localState.sell.count}});
-        dispatch({type: 'INCR_CAPITAL', payload: localState.sell.value});
+        dispatch({type: INCR_OWNED_STOCKS, payload: {ticker: chosen, number: -1 * localState.sell.count}});
+        dispatch({type: INCR_CAPITAL, payload: localState.sell.value});
       } else {
         // Wrong amount
       }

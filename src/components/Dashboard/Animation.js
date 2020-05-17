@@ -35,7 +35,7 @@ function Animation() {
     let dir = (state.animation.speed < 0)?-1:1
     let nextIndex = dates.indexOf(currentDate) + dir
     if (nextIndex < dates.length && nextIndex >= 0) {
-      let nextDate = dates[nextIndex]
+      const nextDate = dates[nextIndex]
       if (shownDates.length > 12 * zoomRatio){
         let shownFromDate = dates[nextIndex - 12 * zoomRatio]
         if (shownFromDate === undefined) {
@@ -50,6 +50,7 @@ function Animation() {
     }
   }
 
+  // Handling interval
   useEffect(() => {
     let interval
     if (!paused){
@@ -57,6 +58,7 @@ function Animation() {
       ticker()
     }, 1000 / Math.abs(state.animation.speed));
 
+    // unmount
     return () => {
       clearInterval(interval);
       
@@ -142,7 +144,7 @@ function Animation() {
       </div>
     </div>
     <div className="DashboardInformation">
-      <div>SPEED: {state.animation.speed + "x" + ((paused)?" PAUSED":"")}</div>
+      <div>SPEED: {state.animation.speed + "x"}</div>
       <div>ZOOM: {state.animation.zoom}x</div>
       <div>CANDLES:  
         <button onClick={swtichCandles} className="Dashboard-button">
