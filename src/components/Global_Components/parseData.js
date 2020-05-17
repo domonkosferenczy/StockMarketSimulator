@@ -1,5 +1,5 @@
 const requestAll = async () => {
-    const response = await fetch("all.json")
+    const response = await fetch("http://localhost:4000/api/all")
     const data = await response.json()
 
     const tickers = data.tickers
@@ -21,10 +21,10 @@ const requestAll = async () => {
 }
 
 const requestStock = async (ticker) => {
-    const response = await fetch(`${ticker}.json`)
+    const response = await fetch(`http://localhost:4000/api/ticker_data/${ticker}`)
     const data = await response.json()
 
-    const responseMeta = await fetch(`${ticker}_meta.json`)
+    const responseMeta = await fetch(`http://localhost:4000/api/ticker_meta/${ticker}`)
     const meta = await responseMeta.json()
 
     const datapoints = {}
