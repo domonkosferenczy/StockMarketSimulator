@@ -1,6 +1,6 @@
-import React from 'react';
-import SidebarHeader from './Sidebar/SidebarHeader'
-import AvailableStocks from './Sidebar/AvailableStocks'
+import React from "react";
+import SidebarHeader from "./Sidebar/SidebarHeader";
+import AvailableStocks from "./Sidebar/AvailableStocks";
 
 function Sidebar() {
   return (
@@ -8,7 +8,7 @@ function Sidebar() {
       <SidebarHeader />
       <AvailableStocks />
     </div>
-  )
+  );
 }
 
 export default Sidebar;

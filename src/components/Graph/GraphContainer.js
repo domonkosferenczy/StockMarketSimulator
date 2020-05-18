@@ -1,14 +1,12 @@
-import React from 'react';
-import Graph from '../Graph'
+import React from "react";
+import Graph from "../Graph";
 
 function GraphContainer() {
-  
- return (
+  return (
     <div className="GraphContainer" id="GraphID">
-        <Graph />
+      <Graph />
     </div>
-  )
+  );
 }
-
 
 export default GraphContainer;

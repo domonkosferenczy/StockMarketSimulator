@@ -1,7 +1,6 @@
-import React from 'react';
-import StocksFilter from './StocksFilter'
-import StocksList from './StocksList'
-
+import React from "react";
+import StocksFilter from "./StocksFilter";
+import StocksList from "./StocksList";
 
 function AvailableStocks() {
   return (
@@ -10,7 +9,7 @@ function AvailableStocks() {
       <StocksFilter />
       <StocksList />
     </div>
-  )
+  );
 }
 
 export default AvailableStocks;

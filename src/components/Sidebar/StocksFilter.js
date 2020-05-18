@@ -1,42 +1,44 @@
-import React, { useContext } from 'react';
-import Arrow from '../Global_Components/Arrow'
-import { SET_FILTER_INPUT, SET_FILTER_TYPE } from 'components/Store/Actions'
-import { StoreContext } from 'components/Store/Store';
+import React, { useContext } from "react";
+import Arrow from "../Global_Components/Arrow";
+import { SET_FILTER_INPUT, SET_FILTER_TYPE } from "components/Store/Actions";
+import { StoreContext } from "components/Store/Store";
 
 function StocksFilter() {
   const [state, dispatch] = useContext(StoreContext);
 
-  const filterType = state.filter.type
+  const filterType = state.filter.type;
 
   // Setting the chosen filter input in global state
   const handleChangeInput = (event) => {
     const val = event.target.value;
-    dispatch({type: SET_FILTER_INPUT, payload: val})
-  }
+    dispatch({ type: SET_FILTER_INPUT, payload: val });
+  };
 
   // Setting the filter type in global state
-  const filterClick = mode => {
-    mode = (filterType === mode)?"":mode
-    dispatch({type: SET_FILTER_TYPE, payload: mode})
-  }
+  const filterClick = (mode) => {
+    mode = filterType === mode ? "" : mode;
+    dispatch({ type: SET_FILTER_TYPE, payload: mode });
+  };
 
   // Returns with a className if chosen or not
-  const filterChosen = buttonType => {
-    if (filterType === buttonType){
-      return "filterChosen"
+  const filterChosen = (buttonType) => {
+    if (filterType === buttonType) {
+      return "filterChosen";
     } else {
-      return ""
-      }
-  }
+      return "";
+    }
+  };
 
   return (
     <div className="StocksFilter">
       <div>
         <button
-          onClick={() => { filterClick("up")} } 
+          onClick={() => {
+            filterClick("up");
+          }}
           className={filterChosen("up")}
         >
-          <Arrow dir={"up"} size="small"  />
+          <Arrow dir={"up"} size="small" />
         </button>
         <button
           onClick={() => filterClick("down")}
@@ -53,9 +55,10 @@ function StocksFilter() {
       </div>
       <input
         placeholder="Type the name of the Stock"
-        onChange={handleChangeInput} />
+        onChange={handleChangeInput}
+      />
     </div>
-  )
+  );
 }
 
-export default StocksFilter
+export default StocksFilter;

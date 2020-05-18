@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 function Candle(props) {
-  const [onMouse, setOnMouse] = useState(false)
+  const [onMouse, setOnMouse] = useState(false);
 
-  const lines = []
+  const lines = [];
 
   // Setting the color
-  let color = "#5AEE64" // green
-  if (props.color === "red"){
-    color = "#EE5A5A" // red
+  let color = "#5AEE64"; // green
+  if (props.color === "red") {
+    color = "#EE5A5A"; // red
   }
 
   // Constans for style
@@ -16,20 +16,19 @@ function Candle(props) {
     stroke: color,
     strokeWidth: props.width,
     strokeLinecap: "butt",
-    opacity: (onMouse)?0.4:1
-  }
+    opacity: onMouse ? 0.4 : 1,
+  };
   const highLowStyle = {
     stroke: color,
-    strokeWidth: props.width/5,
+    strokeWidth: props.width / 5,
     strokeLinecap: "butt",
-    opacity: (onMouse)?0.2:1
-  }
+    opacity: onMouse ? 0.2 : 1,
+  };
 
   lines.push(
-
     // close-open line
     <line
-      key={"CB"+props.x}
+      key={"CB" + props.x}
       x1={props.x}
       y1={props.close}
       x2={props.x}
@@ -41,7 +40,7 @@ function Candle(props) {
 
     // high-low line
     <line
-      key={"CS"+props.x}
+      key={"CS" + props.x}
       x1={props.x}
       y1={props.high}
       x2={props.x}
@@ -49,12 +48,10 @@ function Candle(props) {
       style={highLowStyle}
       onMouseOver={() => setOnMouse(true)}
       onMouseLeave={() => setOnMouse(false)}
-    />,
-  )
+    />
+  );
 
-  return (
-    lines    
-  )
+  return lines;
 }
 
 export default Candle;
