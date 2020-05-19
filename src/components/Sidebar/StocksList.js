@@ -24,17 +24,6 @@ function StocksList() {
     let value = 0;
     let dir = "line";
 
-    // Filter conditions
-    const TextCondition =
-      filterSearch === "" || stock.includes(filterSearch.toUpperCase());
-    const OwnedCondition =
-      (filterType === "owned" &&
-        ownedStocksKeys.includes(stock) &&
-        ownedStocks[stock].numberOfStocks > 0) ||
-      filterType !== "owned";
-    const ArrowCondition =
-      filterType === dir || filterType === "" || filterType === "owned";
-
     // Setting Arrow direction
     let prevDate = data.dates[data.dates.indexOf(currentDate) - 1];
     if (prevDate === undefined) {
@@ -45,6 +34,17 @@ function StocksList() {
     } else if (currentPrice < stockData[prevDate].close) {
       dir = "down";
     }
+
+    // Filter conditions
+    const TextCondition =
+      filterSearch === "" || stock.includes(filterSearch.toUpperCase());
+    const OwnedCondition =
+      (filterType === "owned" &&
+        ownedStocksKeys.includes(stock) &&
+        ownedStocks[stock].numberOfStocks > 0) ||
+      filterType !== "owned";
+    const ArrowCondition =
+      filterType === dir || filterType === "" || filterType === "owned";
 
     // Filtering
     if (TextCondition && OwnedCondition && ArrowCondition) {
