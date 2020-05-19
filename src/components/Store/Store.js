@@ -18,7 +18,7 @@ const initialState = {
   animation: {
     shownFrom: "2016-01-04",
     currentDate: "2016-01-04",
-    speed: 10,
+    speed: 500,
     paused: true,
     zoom: 10,
     chosen: "AAPL",
