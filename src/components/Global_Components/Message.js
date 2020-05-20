@@ -31,7 +31,7 @@ function Message(props) {
         className="Message"
         style={{ opacity: opacity }}
       >
-        <img src={ExplSource} />
+        <img src={ExplSource} alt="Expl Mark" />
         {props.message.content}
       </div>
     );

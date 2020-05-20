@@ -73,11 +73,15 @@ function StocksList() {
     return null;
   });
 
-  return (
-    <div className="StocksList">
-      {countOfItems > 0 ? StocksListElements : "No found"}
-    </div>
-  );
+  if (countOfItems > 0) {
+    return <div className="StocksList">{StocksListElements}</div>;
+  } else {
+    return (
+      <div className="StocksList">
+        <div className="StocksList-NoFound">No Found</div>
+      </div>
+    );
+  }
 }
 
 export default StocksList;

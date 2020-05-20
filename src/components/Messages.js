@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { StoreContext } from "components/Store/Store";
 import Message from "components/Global_Components/Message";
 
