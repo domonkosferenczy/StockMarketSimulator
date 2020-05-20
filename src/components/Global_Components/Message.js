@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { StoreContext } from "components/Store/Store";
+import ExplSource from "images/expl.svg";
 
 function Message(props) {
   const [, dispatch] = useContext(StoreContext);
@@ -30,6 +31,7 @@ function Message(props) {
         className="Message"
         style={{ opacity: opacity }}
       >
+        <img src={ExplSource} />
         {props.message.content}
       </div>
     );
