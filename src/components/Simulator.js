@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import Sidebar from "./Sidebar";
 import GraphContainer from "./Graph/GraphContainer";
 import Dashboard from "./Dashboard";
+import Messages from "./Messages";
 import { DataContext } from "./Store/Data";
 import requestAll from "./Global_Components/parseData";
 
@@ -25,6 +26,7 @@ function Simulator() {
   } else {
     return (
       <div className="App">
+        <Messages />
         <Sidebar />
         <div className="AppRightSection" id="appright">
           <GraphContainer />

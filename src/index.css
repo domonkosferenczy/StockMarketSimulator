@@ -385,3 +385,25 @@ code {
   opacity: 0.3;
   transition: 0s;
 }
+
+.MessageContainer {
+  position: fixed;
+  top: 5%;
+  left: 0;
+  right: 0;
+  width: 30%;
+  margin: 0 auto;
+  z-index: 200;
+  transition: all 1s;
+}
+
+.Message {
+  position: relative;
+  width: 100%;
+  background: rgba(39, 39, 39, 0.8);
+  padding: 2%;
+  margin: 0.5em;
+  border-radius: 0.5em;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.36);
+  transition: visibility 0s, opacity 0.5s linear;
+}

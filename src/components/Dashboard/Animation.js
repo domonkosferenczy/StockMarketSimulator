@@ -54,6 +54,10 @@ function Animation() {
         dispatch({ type: SET_CURRENT_DATE, payload: nextDate });
       }
     } else {
+      dispatch({
+        type: "ADD_MESSAGE",
+        payload: { content: "Animation ended!", id: state.message.lastId },
+      });
       dispatch({ type: SET_PAUSED, payload: true });
     }
   };
@@ -103,6 +107,11 @@ function Animation() {
       dispatch({
         type: GRAPH_MOVE,
         payload: { currentDate: currentDate, shownFromData: shownFromData },
+      });
+    } else {
+      dispatch({
+        type: "ADD_MESSAGE",
+        payload: { content: "Maximum zoom reached!", id: state.message.lastId },
       });
     }
   };

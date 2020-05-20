@@ -151,6 +151,29 @@ const Reducer = (state, action) => {
         },
       };
 
+    case "ADD_MESSAGE":
+      let newarray = state.message.messages;
+      if (!newarray.includes(action.payload)) newarray.push(action.payload);
+      return {
+        ...state,
+        message: {
+          ...state.message,
+          lastId: state.message.lastId + 1,
+          messages: newarray,
+        },
+      };
+    case "REMOVE_MESSAGE":
+      let newarray2 = state.message.messages;
+      let newarray3 = [];
+      newarray3 = newarray2.filter((message) => message.id !== action.payload);
+      return {
+        ...state,
+        message: {
+          ...state.message,
+          messages: newarray3,
+        },
+      };
+
     // Reducer for the Data.js
     case "SET_DATA":
       return action.payload;

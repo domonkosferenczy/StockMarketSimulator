@@ -28,6 +28,10 @@ const initialState = {
     search: "",
     type: "",
   },
+  message: {
+    lastId: 0,
+    messages: [],
+  },
 };
 
 export const Store = (props) => {

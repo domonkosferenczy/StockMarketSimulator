@@ -60,7 +60,10 @@ function Trade() {
         });
       }
     } else {
-      // No enough money
+      dispatch({
+        type: "ADD_MESSAGE",
+        payload: { content: "No enough money!", id: state.message.lastId },
+      });
     }
   };
 
@@ -74,10 +77,19 @@ function Trade() {
         });
         dispatch({ type: INCR_CAPITAL, payload: localState.sell.value });
       } else {
-        // Wrong amount
+        dispatch({
+          type: "ADD_MESSAGE",
+          payload: {
+            content: "No enough shares owned!",
+            id: state.message.lastId,
+          },
+        });
       }
     } else {
-      // No shares owned
+      dispatch({
+        type: "ADD_MESSAGE",
+        payload: { content: "No shares owned!", id: state.message.lastId },
+      });
     }
   };
 
