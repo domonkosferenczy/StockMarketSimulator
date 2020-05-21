@@ -25,7 +25,7 @@ function Xaxis(p) {
   };
 
   // Constants for data
-  const allDates = Object.keys(data.stocks[state.animation.chosen].datapoints);
+  const allDates = data.dates;
   const shownDates = allDates.slice(
     allDates.indexOf(state.animation.shownFrom)
   );
@@ -38,7 +38,7 @@ function Xaxis(p) {
   }
 
   // Rendering X axis elements
-  for (let i = 0; i <= 13; i++) {
+  for (let i = 0; i <= 12; i++) {
     const xPos = (i * props.renderSize.width) / props.lines.X + paddingX;
     const lineX = xPos + offsetX;
 

@@ -7,13 +7,12 @@ const initialState = {
   user: {
     capitalAvailable: 3400.12,
     ownedStocks: {},
-    history: {
-      valueOfStocks: {
-        "2020-01-01": 300,
-      },
-    },
     prevValueOfStocks: 0,
     valueOfStocks: 0,
+    history: {
+      capitalAvailable: { "2016-01-04": 0 },
+      valueOfStocks: { "2016-01-04": 0 },
+    },
   },
   animation: {
     shownFrom: "2016-01-04",

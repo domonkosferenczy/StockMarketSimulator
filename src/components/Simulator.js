@@ -5,8 +5,10 @@ import Dashboard from "./Dashboard";
 import Messages from "./Messages";
 import { DataContext } from "./Store/Data";
 import requestAll from "./Global_Components/parseData";
+import { StoreContext } from "./Store/Store";
 
 function Simulator() {
+  const [state] = useContext(StoreContext);
   const [data, dispatch] = useContext(DataContext);
 
   // Loading data from API
@@ -29,7 +31,24 @@ function Simulator() {
         <Messages />
         <Sidebar />
         <div className="AppRightSection" id="appright">
-          <GraphContainer />
+          <div className="Graphs">
+            <GraphContainer
+              width={"50%"}
+              height={"50%"}
+              show={state.animation.chosen}
+            />
+            <GraphContainer
+              width={"50%"}
+              height={"50%"}
+              show={state.user.history.capitalAvailable}
+            />
+            <GraphContainer
+              width={"50%"}
+              height={"50%"}
+              show={state.user.history.valueOfStocks}
+            />
+            <GraphContainer width={"50%"} height={"50%"} show={"GOOG"} />
+          </div>
           <Dashboard />
         </div>{" "}
       </div>

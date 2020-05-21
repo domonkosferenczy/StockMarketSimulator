@@ -1,33 +1,32 @@
 .GraphSVG {
-    transform: rotateZ(180deg) rotateY(180deg);
-    width: 100%;
-    height: 100%
+  transform: rotateZ(180deg) rotateY(180deg);
+  width: 100%;
 }
 
 .GridLine {
-    fill: none;
-    stroke: #777777;
-    stroke-linecap: round
+  fill: none;
+  stroke: #777777;
+  stroke-linecap: round;
 }
 .GridTextX {
-    transform: rotateX(180deg) rotateZ(-45deg);
-    transform-origin: center center;
-    transform-box: fill-box;
-    fill: #ffffff
+  transform: rotateX(180deg) rotateZ(-45deg);
+  transform-origin: center center;
+  transform-box: fill-box;
+  fill: #ffffff;
 }
 .GridTextY {
-    transform: rotateX(180deg);
-    transform-origin: transform;
-    transform-box: fill-box;
-    fill: #ffffff
+  transform: rotateX(180deg);
+  transform-origin: transform;
+  transform-box: fill-box;
+  fill: #ffffff;
 }
 .Polygon {
-    fill: rgba(57, 207, 68, 0.54);
-    opacity: 1;
-    stroke: transparent;
-    stroke-width: 0
+  fill: rgba(57, 207, 68, 0.54);
+  opacity: 1;
+  stroke: transparent;
+  stroke-width: 0;
 }
 .Polyline {
-    fill: transparent;
-    stroke: white
+  fill: transparent;
+  stroke: white;
 }

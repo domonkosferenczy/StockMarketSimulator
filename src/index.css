@@ -357,15 +357,28 @@ code {
   transform: rotateZ(180deg);
 }
 
-.GraphContainer {
+.Graphs {
   min-height: 70%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.GraphContainer {
   background: var(--lightenGrey);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   position: relative;
   z-index: 8;
   text-shadow: 0 0 1px #fff;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
+  width: 50%;
+  height: 50%;
+  border: 0.5px solid var(--darkestGrey);
+  box-sizing: border-box;
 }
 
 .GraphTicker {

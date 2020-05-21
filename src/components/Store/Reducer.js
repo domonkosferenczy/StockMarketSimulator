@@ -151,6 +151,7 @@ const Reducer = (state, action) => {
         },
       };
 
+    // Message
     case "ADD_MESSAGE":
       let newarray = state.message.messages;
       if (!newarray.includes(action.payload)) newarray.push(action.payload);
@@ -171,6 +172,37 @@ const Reducer = (state, action) => {
         message: {
           ...state.message,
           messages: newarray3,
+        },
+      };
+
+    // History
+    case "ADD_HISTORY_CAPITAL":
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          history: {
+            ...state.user.history,
+            capitalAvailable: {
+              ...state.user.history.capitalAvailable,
+              [action.payload.date]: action.payload.value,
+            },
+          },
+        },
+      };
+
+    case "ADD_HISTORY_VALUE_OF_STOCKS":
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          history: {
+            ...state.user.history,
+            valueOfStocks: {
+              ...state.user.history.valueOfStocks,
+              [action.payload.date]: action.payload.value,
+            },
+          },
         },
       };
 

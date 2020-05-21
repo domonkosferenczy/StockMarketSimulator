@@ -1,24 +1,32 @@
 import React, { useContext } from "react";
 import Xaxis from "./Graph/Xaxis";
 import Yaxis from "./Graph/Yaxis";
-import Datapoints from "./Graph/Datapoints";
+import LinePoints from "./Graph/LinePoints";
+import CandlePoints from "./Graph/CandlePoints";
 import { StoreContext } from "./Store/Store";
 import { DataContext } from "./Store/Data";
 import { useContainerSize } from "components/Graph/GraphFunctions";
 import "stylesheet/graph.css";
 
-function Graph() {
+function Graph(props) {
   const [state] = useContext(StoreContext);
   const [data] = useContext(DataContext);
   const container = useContainerSize();
 
   // Constants for data
-  const chosenDatapoints = data.stocks[state.animation.chosen].datapoints;
-  const allDates = Object.keys(chosenDatapoints);
+  const show = props.show;
+  let chosenDatapoints;
+  if (typeof show === "string") {
+    chosenDatapoints = data.stocks[show].datapoints;
+  } else {
+    chosenDatapoints = show;
+  }
+
+  const allDates = data.dates;
   const shownFrom = allDates.indexOf(state.animation.shownFrom);
   const shownTo = allDates.indexOf(state.animation.currentDate) + 1;
   const shownDates = allDates.slice(shownFrom, shownTo);
-  const shownDataPoints = shownDates.map((date) => {
+  const shownDataPoints = shownDates.map((date, index) => {
     return chosenDatapoints[date];
   });
 
@@ -44,10 +52,14 @@ function Graph() {
   // Searching for the lowest and highest value
   const listOfNumbers = [];
   shownDataPoints.map((date) => {
-    const numbers = Object.keys(date).map((key) => {
-      return date[key];
-    });
-    listOfNumbers.push(...numbers);
+    if (typeof date === "number") {
+      listOfNumbers.push(date);
+    } else if (typeof date === "object") {
+      const numbers = Object.keys(date).map((key) => {
+        return date[key];
+      });
+      listOfNumbers.push(...numbers);
+    }
     return "";
   });
 
@@ -82,7 +94,11 @@ function Graph() {
       <svg className="GraphSVG" viewBox={viewBoxValue}>
         <Xaxis propsInObject={propsInObject} />
         <Yaxis propsInObject={propsInObject} />
-        <Datapoints propsInObject={propsInObject} />
+        {state.animation.candle ? (
+          <CandlePoints propsInObject={propsInObject} />
+        ) : (
+          <LinePoints propsInObject={propsInObject} />
+        )}
       </svg>
     </div>
   );
