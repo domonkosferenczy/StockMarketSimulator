@@ -246,7 +246,6 @@ code {
   border-left: 0;
   color: #5b5b5b;
   font-weight: 600;
-  height: fit-content;
 }
 
 .DashboardButtons {
@@ -285,13 +284,17 @@ code {
 
 .DashboardButtons button,
 .Dashboard-button {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
-  background: #3d3d3d;
-  color: #cccccc;
-  border: 0.5px solid var(--lightenBorderGrey);
   font-weight: 600;
   overflow: hidden;
   position: relative;
+  text-align: center;
+  align-items: center;
+  background: #3d3d3d;
+  border-radius: 2px;
+  color: #fff;
+  border: 0.5px solid #585858;
+  box-shadow: 1px 1px 2px #181818;
+  cursor: pointer;
 }
 
 .DashboardButtons .BuyAndSell {
@@ -320,15 +323,17 @@ code {
   text-align: center;
   align-items: center;
   width: 3em;
+  background: #3d3d3d;
+  border-radius: 2px;
+  color: #fff;
+  border: 0.5px solid #585858;
+  box-shadow: 1px 1px 2px #181818;
+  cursor: pointer;
 }
 
 .AnimationButtons button img {
   width: 20px;
   height: 20px;
-}
-
-.AnimationButtons button:last-child {
-  border-radius: 0 2px 2px 0;
 }
 
 .AnimationButtons-plusMinus {
@@ -339,14 +344,6 @@ code {
 
 .AnimationButtons-plusMinus button {
   padding: 0.05em 1em;
-}
-
-.AnimationButtons-plusMinus button:first-child {
-  border-radius: 2px 0 0 0;
-}
-
-.AnimationButtons-plusMinus button:last-child {
-  border-radius: 0 0 0 2px;
 }
 
 .AnimationButtons-plusMinus button img {
@@ -378,8 +375,10 @@ code {
   flex-direction: column;
   width: 50%;
   height: 50%;
-  border: 0.5px solid var(--darkestGrey);
+  border: 0.05em solid #252525;
   box-sizing: border-box;
+  border-right: 0;
+  border-bottom: 0;
 }
 
 .GraphTicker {
@@ -449,4 +448,5 @@ select {
   margin: 1px;
   border: 0.5px solid #585858;
   box-shadow: 1px 1px 2px #181818;
+  cursor: pointer;
 }

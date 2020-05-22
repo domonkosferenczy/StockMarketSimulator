@@ -24,6 +24,7 @@ function Animation() {
   const currentDate = state.animation.currentDate;
   const paused = state.animation.paused;
   const dates = data.dates;
+  const ownedStocks = state.user.ownedStocks;
 
   const chosenDatapoints = data.stocks[state.animation.chosen].datapoints;
   const allDates = Object.keys(chosenDatapoints);
@@ -127,7 +128,37 @@ function Animation() {
     if (to === "start") {
       currentDate = dates[0];
       shownFrom = allDates[0];
+      dispatch({
+        type: "CLEAR_HISTORY",
+      });
     } else {
+      // Calculating the present value of the Stocks
+      const historyValueOfStocks = {};
+      const historyCapitalAvailable = state.user.history.capitalAvailable;
+      allDates.map((date) => {
+        const valueOfStocks = Object.keys(ownedStocks).reduce(
+          (accumulator, stock) => {
+            const number = ownedStocks[stock].numberOfStocks;
+            const stockValue = data.stocks[stock].datapoints[date].close;
+            return accumulator + number * stockValue;
+          },
+          0
+        );
+        historyValueOfStocks[date] = valueOfStocks;
+        if (!Object.keys(state.user.history.capitalAvailable).includes(date)) {
+          historyCapitalAvailable[date] = state.user.capitalAvailable;
+        }
+      });
+
+      dispatch({
+        type: "SET_HISTORY_VALUE_OF_STOCKS",
+        payload: historyValueOfStocks,
+      });
+      dispatch({
+        type: "SET_HISTORY_CAPITAL_AVAILABLE",
+        payload: historyCapitalAvailable,
+      });
+
       currentDate = dates[dates.length - 1];
       shownFrom = dates[dates.length - 1 - 12 * zoomRatio];
       if (shownFrom === undefined) {

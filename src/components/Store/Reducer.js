@@ -215,6 +215,41 @@ const Reducer = (state, action) => {
         },
       };
 
+    case "SET_HISTORY_VALUE_OF_STOCKS":
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          history: {
+            ...state.user.history,
+            valueOfStocks: action.payload,
+          },
+        },
+      };
+    case "SET_HISTORY_CAPITAL_AVAILABLE":
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          history: {
+            ...state.user.history,
+            capitalAvailable: action.payload,
+          },
+        },
+      };
+
+    case "CLEAR_HISTORY":
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          history: {
+            valueOfStocks: {},
+            capitalAvailable: {},
+          },
+        },
+      };
+
     // Reducer for the Data.js
     case "SET_DATA":
       return action.payload;
