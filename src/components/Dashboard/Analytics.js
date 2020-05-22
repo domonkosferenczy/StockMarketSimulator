@@ -74,7 +74,9 @@ function Analytics() {
   return (
     <div className="Analytics">
       ANALYTICS
-      <div>{selects}</div>
+      <div className="AnalyticsSelects">
+        <div>{selects}</div>
+      </div>
     </div>
   );
 }

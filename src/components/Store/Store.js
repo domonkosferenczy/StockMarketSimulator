@@ -21,7 +21,6 @@ const initialState = {
     paused: true,
     zoom: 10,
     chosen: "AAPL",
-    candle: true,
     shown: ["Chosen", "Capital Available", "GOOG", "Value Of Stocks"],
   },
   filter: {

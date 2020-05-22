@@ -142,14 +142,6 @@ const Reducer = (state, action) => {
           shownFrom: action.payload.shownFromData,
         },
       };
-    case "SET_CANDLE":
-      return {
-        ...state,
-        animation: {
-          ...state.animation,
-          candle: action.payload,
-        },
-      };
 
     case "CHANGE_SHOW":
       return {

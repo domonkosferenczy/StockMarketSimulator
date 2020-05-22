@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect } from "react";
+import React, { useContext, useRef, useEffect, useState } from "react";
 import Xaxis from "./Graph/Xaxis";
 import Yaxis from "./Graph/Yaxis";
 import LinePoints from "./Graph/LinePoints";
@@ -12,6 +12,8 @@ import "stylesheet/graph.css";
 function Graph(props) {
   const [state] = useContext(StoreContext);
   const [data] = useContext(DataContext);
+
+  const [color, setColor] = useState("candle");
   const container = useContainerSize();
 
   // Constants for data
@@ -87,19 +89,19 @@ function Graph(props) {
     zoomRatio: zoomRatio,
     shownDataPoints: shownDataPoints,
     offsetX: offsetX,
+    color: color,
   };
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    ctx.globalAlpha = 1.0;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.globalAlpha = 1.0;
 
     Xaxis(state, data, propsInObject, ctx);
     Yaxis(state, data, propsInObject, ctx);
-
-    if (state.animation.candle && typeof show === "string") {
+    if (color === "candle" && typeof show === "string") {
       CandlePoints(state, data, propsInObject, ctx);
     } else {
       LinePoints(state, data, propsInObject, ctx);
@@ -114,7 +116,11 @@ function Graph(props) {
         width={container.width}
         height={container.height}
       ></canvas>
-      <GraphInfo title={props.title} />
+      <GraphInfo
+        title={props.title}
+        color={color}
+        colorHandler={(color) => setColor(color)}
+      />
     </div>
   );
 }

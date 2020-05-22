@@ -10,7 +10,6 @@ import Pause from "images/pause.svg";
 import {
   GRAPH_MOVE,
   SET_PAUSED,
-  SET_CANDLE,
   INCR_SPEED,
   INCR_ZOOM,
   SET_CURRENT_DATE,
@@ -133,7 +132,7 @@ function Animation() {
       });
     } else {
       // Calculating the present value of the Stocks
-      const historyValueOfStocks = {};
+      const historyValueOfStocks = state.user.history.valueOfStocks;
       const historyCapitalAvailable = state.user.history.capitalAvailable;
       allDates.map((date) => {
         const valueOfStocks = Object.keys(ownedStocks).reduce(
@@ -144,18 +143,21 @@ function Animation() {
           },
           0
         );
-        historyValueOfStocks[date] = valueOfStocks;
+        if (!Object.keys(state.user.history.valueOfStocks).includes(date)) {
+          historyValueOfStocks[date] = valueOfStocks;
+        }
+
         if (!Object.keys(state.user.history.capitalAvailable).includes(date)) {
           historyCapitalAvailable[date] = state.user.capitalAvailable;
         }
       });
 
       dispatch({
-        type: "SET_HISTORY_VALUE_OF_STOCKS",
+        type: "ADD_HISTORY_VALUE_OF_STOCKS",
         payload: historyValueOfStocks,
       });
       dispatch({
-        type: "SET_HISTORY_CAPITAL_AVAILABLE",
+        type: "ADD_HISTORY_CAPITAL_AVAILABLE",
         payload: historyCapitalAvailable,
       });
 
@@ -169,11 +171,6 @@ function Animation() {
       type: GRAPH_MOVE,
       payload: { currentDate: currentDate, shownFromData: shownFrom },
     });
-  };
-
-  const swtichCandles = () => {
-    const switcher = !state.animation.candle;
-    dispatch({ type: SET_CANDLE, payload: switcher });
   };
 
   return (
@@ -209,12 +206,6 @@ function Animation() {
       <div className="DashboardInformation">
         <div>SPEED: {state.animation.speed + "x"}</div>
         <div>ZOOM: {state.animation.zoom}x</div>
-        <div>
-          CANDLES:
-          <button onClick={swtichCandles} className="Dashboard-button">
-            {state.animation.candle ? "ON" : "OFF"}
-          </button>
-        </div>
       </div>
     </div>
   );

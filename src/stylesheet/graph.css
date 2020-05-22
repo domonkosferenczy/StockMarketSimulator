@@ -1,5 +1,6 @@
 .GraphSVG {
   width: 100%;
+  transition: transform 0.3s;
 }
 
 .GridLine {
@@ -41,4 +42,17 @@
   opacity: 0.8;
   text-transform: uppercase;
   font-size: 0.8em;
+}
+
+.GraphInfo:hover .GraphInfo-alt {
+  visibility: visible;
+  height: inherit;
+  width: initial;
+}
+
+.GraphInfo-alt {
+  height: 0;
+  visibility: hidden;
+  width: 0;
+  position: relative;
 }

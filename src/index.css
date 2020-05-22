@@ -379,6 +379,7 @@ code {
   box-sizing: border-box;
   border-right: 0;
   border-bottom: 0;
+  position: relative;
 }
 
 .GraphTicker {
@@ -437,6 +438,22 @@ code {
 .Message img {
   height: 1em;
   margin: 0 0.2em 0 0;
+}
+
+.AnalyticsSelects {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 100%;
+}
+
+.AnalyticsSelects div {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 select {
