@@ -7,8 +7,8 @@ export const useContainerSize = () => {
     function updateSize() {
       const graphContainer = document.getElementById("GraphID");
       setSize({
-        width: graphContainer.offsetWidth,
-        height: graphContainer.offsetHeight,
+        width: graphContainer.offsetWidth * 2,
+        height: graphContainer.offsetHeight * 2,
       });
     }
     window.addEventListener("resize", updateSize);
@@ -20,4 +20,12 @@ export const useContainerSize = () => {
     };
   }, []);
   return size;
+};
+
+export const convertToRealX = (width, x) => {
+  return width - x;
+};
+
+export const convertToRealY = (height, y) => {
+  return height - y;
 };
