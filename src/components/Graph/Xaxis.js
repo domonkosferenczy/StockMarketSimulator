@@ -1,28 +1,13 @@
-import React, { useContext } from "react";
-import { StoreContext } from "components/Store/Store";
-import { DataContext } from "components/Store/Data";
-import "stylesheet/graph.css";
+import { convertToRealY } from "./GraphFunctions";
 
-function Xaxis(p) {
-  const [state] = useContext(StoreContext);
-  const [data] = useContext(DataContext);
-
-  const props = p.propsInObject;
+function Xaxis(state, data, propsInObject, ctx) {
+  const props = propsInObject;
 
   // Constants for graphical
-  const grid = [];
   const paddingY = props.padding.horizontal;
   const paddingX = props.padding.vertical + props.renderSize.width / 20;
   const fontCenter = props.renderSize.width * 0.01;
   const offsetX = props.renderSize.width * 0.01;
-
-  // Constants for style
-  const LineStyle = {
-    strokeWidth: props.renderSize.height / 600,
-  };
-  const TextStyle = {
-    fontSize: props.renderSize.height / 30,
-  };
 
   // Constants for data
   const allDates = data.dates;
@@ -42,34 +27,28 @@ function Xaxis(p) {
     const xPos = (i * props.renderSize.width) / props.lines.X + paddingX;
     const lineX = xPos + offsetX;
 
-    grid.push(
-      // X axis line
-      <line
-        key={"X" + i}
-        className="GridLine"
-        x1={lineX}
-        y1={paddingY}
-        x2={lineX}
-        y2={props.renderSize.height}
-        style={LineStyle}
-      />
+    ctx.lineWidth = props.renderSize.height / 300;
+    ctx.lineCap = "butt";
+    ctx.strokeStyle = "#777777";
+    ctx.beginPath();
+    ctx.moveTo(lineX, convertToRealY(props.renderSize.height, paddingY));
+    ctx.lineTo(
+      lineX,
+      convertToRealY(
+        props.renderSize.height,
+        props.renderSize.height - paddingY
+      )
     );
+    ctx.stroke();
 
-    // X axis date text
-    grid.push(
-      <text
-        key={"XT" + i}
-        className="GridTextX"
-        x={xPos - fontCenter}
-        y={paddingY / 1.75}
-        style={TextStyle}
-      >
-        {datesToRender[i]}
-      </text>
+    ctx.font = `${props.renderSize.width / 100}px Bahnschrift`;
+    ctx.fillStyle = "white";
+    ctx.fillText(
+      `${datesToRender[i]}`,
+      xPos - fontCenter,
+      convertToRealY(props.renderSize.height, paddingY / 1.75)
     );
   }
-
-  return grid;
 }
 
 export default Xaxis;

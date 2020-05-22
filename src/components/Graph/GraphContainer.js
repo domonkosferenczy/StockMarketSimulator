@@ -8,7 +8,7 @@ function GraphContainer(props) {
       id="GraphID"
       style={{ width: props.width, height: props.height }}
     >
-      <Graph show={props.show} />
+      <Graph show={props.show} title={props.title} />
     </div>
   );
 }

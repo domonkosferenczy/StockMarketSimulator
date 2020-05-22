@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef, useEffect } from "react";
 import Xaxis from "./Graph/Xaxis";
 import Yaxis from "./Graph/Yaxis";
 import LinePoints from "./Graph/LinePoints";
 import CandlePoints from "./Graph/CandlePoints";
+import GraphInfo from "./Graph/GraphInfo";
 import { StoreContext } from "./Store/Store";
 import { DataContext } from "./Store/Data";
 import { useContainerSize } from "components/Graph/GraphFunctions";
@@ -31,10 +32,9 @@ function Graph(props) {
   });
 
   // Constants for graphical
-  const viewBoxValue = "0 0 " + container.width + " " + container.height;
   const padding = {
-    horizontal: container.width / 20,
-    vertical: container.height / 20,
+    horizontal: container.width / 40,
+    vertical: container.height / 40,
   };
   const renderSize = {
     width: container.width - padding.horizontal,
@@ -88,18 +88,33 @@ function Graph(props) {
     shownDataPoints: shownDataPoints,
     offsetX: offsetX,
   };
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    ctx.globalAlpha = 1.0;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    Xaxis(state, data, propsInObject, ctx);
+    Yaxis(state, data, propsInObject, ctx);
+
+    if (state.animation.candle && typeof show === "string") {
+      CandlePoints(state, data, propsInObject, ctx);
+    } else {
+      LinePoints(state, data, propsInObject, ctx);
+    }
+  }, [state, container, data, propsInObject, state.user.capitalAvailable]);
 
   return (
     <div className="Graph">
-      <svg className="GraphSVG" viewBox={viewBoxValue}>
-        <Xaxis propsInObject={propsInObject} />
-        <Yaxis propsInObject={propsInObject} />
-        {state.animation.candle ? (
-          <CandlePoints propsInObject={propsInObject} />
-        ) : (
-          <LinePoints propsInObject={propsInObject} />
-        )}
-      </svg>
+      <canvas
+        className="GraphSVG"
+        ref={canvasRef}
+        width={container.width}
+        height={container.height}
+      ></canvas>
+      <GraphInfo title={props.title} />
     </div>
   );
 }

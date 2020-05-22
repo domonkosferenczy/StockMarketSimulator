@@ -1,14 +1,17 @@
-import React from "react";
 import Candle from "./Candle";
+import { convertToRealY } from "./GraphFunctions";
 
-function CandlePoints(p) {
-  const props = p.propsInObject;
+function CandlePoints(state, data, propsInObject, ctx) {
+  const props = propsInObject;
 
   // Constants for graphical
   const paddingY = props.padding.horizontal;
   const offsetX = props.offsetX;
   const zoomRatio = props.zoomRatio;
-  const width = props.renderSize.width / zoomRatio / 20;
+  let width = props.renderSize.width / zoomRatio / 20;
+  if (state.animation.zoom <= 2) {
+    width *= 2;
+  }
 
   // Constants for data
   const datapoints = props.shownDataPoints;
@@ -31,9 +34,9 @@ function CandlePoints(p) {
       datapoint["close"] = 0;
       datapoint["open"] = props.min;
     }
-    let color = "green";
+    let color = "#5AEE64";
     if (index - 1 >= 0 && datapoints[index - 1].close > datapoint.close) {
-      color = "red";
+      color = "#EE5A5A";
     }
 
     // Calculating X and Y values
@@ -43,7 +46,20 @@ function CandlePoints(p) {
     const high = calY(datapoint.high);
     const low = calY(datapoint.low);
 
-    return (
+    ctx.beginPath();
+
+    ctx.lineWidth = width;
+    ctx.strokeStyle = color;
+    ctx.moveTo(x, convertToRealY(props.renderSize.height, close));
+    ctx.lineTo(x, convertToRealY(props.renderSize.height, open));
+    ctx.stroke();
+
+    ctx.lineWidth = width / 10;
+    ctx.moveTo(x, convertToRealY(props.renderSize.height, high));
+    ctx.lineTo(x, convertToRealY(props.renderSize.height, low));
+    ctx.stroke();
+
+    /*return (
       <Candle
         key={"C" + index}
         x={x}
@@ -54,7 +70,7 @@ function CandlePoints(p) {
         color={color}
         width={width}
       />
-    );
+    );*/
   });
 
   return candles;

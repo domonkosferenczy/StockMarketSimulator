@@ -151,6 +151,15 @@ const Reducer = (state, action) => {
         },
       };
 
+    case "CHANGE_SHOW":
+      return {
+        ...state,
+        animation: {
+          ...state.animation,
+          show: [action.payload],
+        },
+      };
+
     // Message
     case "ADD_MESSAGE":
       let newarray = state.message.messages;
