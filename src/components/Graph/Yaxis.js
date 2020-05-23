@@ -28,7 +28,7 @@ function Yaxis(state, data, propsInObject, ctx) {
     );
     ctx.stroke();
 
-    ctx.font = `${props.renderSize.width / 75}px Bahnschrift`;
+    ctx.font = `${props.renderSize.width / 1000}em Bahnschrift`;
     ctx.fillStyle = "white";
     ctx.fillText(
       `$${formatMoney(value)}`,

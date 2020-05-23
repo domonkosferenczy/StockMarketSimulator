@@ -28,6 +28,13 @@ function Simulator() {
     );
   } else {
     const graphs = [];
+    let graphsCount = 0;
+    state.animation.shown.forEach((e) => {
+      if (e !== null) {
+        graphsCount++;
+      }
+    });
+    console.log(graphsCount);
     state.animation.shown.map((element, index) => {
       let ToShow;
       switch (element) {
@@ -40,6 +47,8 @@ function Simulator() {
         case "Capital Available":
           ToShow = state.user.history.capitalAvailable;
           break;
+        case null:
+          return;
         default:
           ToShow = element;
           break;
@@ -47,8 +56,8 @@ function Simulator() {
       graphs.push(
         <GraphContainer
           key={"GPH" + index}
-          width={"50%"}
-          height={"50%"}
+          width={graphsCount === 1 ? "100%" : "50%"}
+          height={graphsCount === 1 ? "100%" : "50%"}
           show={ToShow}
           title={element}
         />

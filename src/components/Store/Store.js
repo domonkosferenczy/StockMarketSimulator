@@ -17,11 +17,12 @@ const initialState = {
   animation: {
     shownFrom: "2016-01-04",
     currentDate: "2016-01-04",
-    speed: 500,
+    speed: 100,
     paused: true,
     zoom: 10,
     chosen: "AAPL",
-    shown: ["Chosen", "Capital Available", "GOOG", "Value Of Stocks"],
+    // shown: ["Chosen", "Capital Available", "GOOG", "Value Of Stocks"],
+    shown: ["Chosen", null, null, null],
   },
   filter: {
     search: "",

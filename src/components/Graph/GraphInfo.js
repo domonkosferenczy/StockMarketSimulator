@@ -17,7 +17,6 @@ function GraphInfo(props) {
           ) : (
             ""
           )}
-
           <option>red</option>
           <option>green</option>
           <option>orange</option>

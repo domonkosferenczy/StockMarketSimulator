@@ -41,13 +41,15 @@ function Xaxis(state, data, propsInObject, ctx) {
     );
     ctx.stroke();
 
-    ctx.font = `${props.renderSize.width / 100}px Bahnschrift`;
+    ctx.font = `${props.renderSize.width / 1000}em Bahnschrift`;
     ctx.fillStyle = "white";
-    ctx.fillText(
-      `${datesToRender[i]}`,
-      xPos - fontCenter,
-      convertToRealY(props.renderSize.height, paddingY / 1.75)
-    );
+    if (datesToRender[i] !== undefined) {
+      ctx.fillText(
+        `${datesToRender[i]}`,
+        xPos - fontCenter,
+        convertToRealY(props.renderSize.height, paddingY / 1.75)
+      );
+    }
   }
 }
 

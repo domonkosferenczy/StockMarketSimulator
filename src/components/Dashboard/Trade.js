@@ -182,6 +182,31 @@ function Trade() {
     state.animation.chosen,
   ]);
 
+  useEffect(() => {
+    const countSell =
+      includesChosen && ownedStocks[chosen].numberOfStocks > 0 ? 1 : 0;
+    const countBuy = 1;
+    setlocalState((prevState) => {
+      return {
+        ...prevState,
+        buy: {
+          ...prevState.buy,
+          count: countBuy,
+        },
+        sell: {
+          ...prevState.sell,
+          count: countSell,
+        },
+      };
+    });
+  }, [
+    state.user.ownedStocks,
+    state.animation.chosen,
+    includesChosen,
+    ownedStocks,
+    chosen,
+  ]);
+
   let stock = { numberOfStocks: 0 };
   if (includesChosen) {
     stock = ownedStocks[chosen];

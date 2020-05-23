@@ -40,7 +40,11 @@ function Analytics() {
 
   const ChangeHandler = (event, nr) => {
     const newArray = state.animation.shown;
-    newArray[nr] = event.target.value;
+    let val = event.target.value;
+    if (event.target.value === "none") {
+      val = null;
+    }
+    newArray[nr] = val;
     dispatch({
       type: "CHANGE_SHOW",
       payload: newArray,
@@ -63,6 +67,7 @@ function Analytics() {
         key={"S" + i}
         defaultValue={state.animation.shown[i]}
       >
+        <option value="none">None</option>
         <option value="Chosen">Chosen</option>
         <option value="Capital Available">Capital Available</option>
         <option value="Value Of Stocks"> Value Of Stocks</option>
