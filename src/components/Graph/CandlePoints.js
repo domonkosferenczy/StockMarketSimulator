@@ -1,5 +1,4 @@
-import Candle from "./Candle";
-import { convertToRealY } from "./GraphFunctions";
+import { drawLine } from "./GraphFunctions";
 
 function CandlePoints(state, data, propsInObject, ctx) {
   const props = propsInObject;
@@ -23,17 +22,7 @@ function CandlePoints(state, data, propsInObject, ctx) {
     ((value - props.min) / props.intervalY) * props.distY + paddingY;
 
   // Rendering candles and graph points
-  const candles = datapoints.map((datapoint, index) => {
-    if (typeof datapoint === "number") {
-      let temp = datapoint;
-      datapoint = {};
-      datapoint["close"] = temp;
-      datapoint["open"] = props.min;
-    } else if (datapoint === undefined) {
-      datapoint = {};
-      datapoint["close"] = 0;
-      datapoint["open"] = props.min;
-    }
+  const candles = datapoints.forEach((datapoint, index) => {
     let color = "#5AEE64";
     if (index - 1 >= 0 && datapoints[index - 1].close > datapoint.close) {
       color = "#EE5A5A";
@@ -46,31 +35,25 @@ function CandlePoints(state, data, propsInObject, ctx) {
     const high = calY(datapoint.high);
     const low = calY(datapoint.low);
 
-    ctx.beginPath();
+    drawLine(
+      x,
+      props.renderSize.height - close,
+      x,
+      props.renderSize.height - open,
+      color,
+      width,
+      ctx
+    );
 
-    ctx.lineWidth = width;
-    ctx.strokeStyle = color;
-    ctx.moveTo(x, convertToRealY(props.renderSize.height, close));
-    ctx.lineTo(x, convertToRealY(props.renderSize.height, open));
-    ctx.stroke();
-
-    ctx.lineWidth = width / 10;
-    ctx.moveTo(x, convertToRealY(props.renderSize.height, high));
-    ctx.lineTo(x, convertToRealY(props.renderSize.height, low));
-    ctx.stroke();
-
-    /*return (
-      <Candle
-        key={"C" + index}
-        x={x}
-        close={close}
-        high={high}
-        low={low}
-        open={open}
-        color={color}
-        width={width}
-      />
-    );*/
+    drawLine(
+      x,
+      props.renderSize.height - high,
+      x,
+      props.renderSize.height - low,
+      color,
+      width / 10,
+      ctx
+    );
   });
 
   return candles;

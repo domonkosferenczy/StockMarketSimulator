@@ -1,9 +1,11 @@
-import { convertToRealY } from "./GraphFunctions";
+import { drawLine } from "./GraphFunctions";
 
 function Xaxis(state, data, propsInObject, ctx) {
   const props = propsInObject;
 
   // Constants for graphical
+  const width = props.renderSize.width;
+  const height = props.renderSize.height;
   const paddingY = props.padding.horizontal;
   const paddingX = props.padding.vertical + props.renderSize.width / 20;
   const fontCenter = props.renderSize.width * 0.01;
@@ -21,35 +23,33 @@ function Xaxis(state, data, propsInObject, ctx) {
     const date = shownDates[i].slice(5).replace("-", ". ") + ".";
     datesToRender.push(date);
   }
+  datesToRender.push(
+    shownDates[shownDates.length - 1].slice(5).replace("-", ". ") + "."
+  );
 
   // Rendering X axis elements
   for (let i = 0; i <= 12; i++) {
-    const xPos = (i * props.renderSize.width) / props.lines.X + paddingX;
+    const xPos = (i * width) / props.lines.X + paddingX;
     const lineX = xPos + offsetX;
 
-    ctx.lineWidth = props.renderSize.height / 300;
-    ctx.lineCap = "butt";
-    ctx.strokeStyle = "#777777";
-    ctx.beginPath();
-    ctx.moveTo(lineX, convertToRealY(props.renderSize.height, paddingY));
-    ctx.lineTo(
-      lineX,
-      convertToRealY(
-        props.renderSize.height,
-        props.renderSize.height - paddingY
-      )
-    );
-    ctx.stroke();
+    // Rendering X lines
+    const x1 = lineX;
+    const y1 = height - paddingY;
+    const x2 = lineX;
+    const y2 = paddingY;
+    const style = "#777777";
+    const lineWidth = height / 300;
 
-    ctx.font = `${props.renderSize.width / 1000}em Bahnschrift`;
+    drawLine(x1, y1, x2, y2, style, lineWidth, ctx);
+
+    // Rendering X values
+    ctx.font = `${width / 1000}em Bahnschrift`;
     ctx.fillStyle = "white";
-    if (datesToRender[i] !== undefined) {
-      ctx.fillText(
-        `${datesToRender[i]}`,
-        xPos - fontCenter,
-        convertToRealY(props.renderSize.height, paddingY / 1.75)
-      );
-    }
+    const Text = datesToRender[i];
+    const xText = xPos - fontCenter;
+    const yText = height - paddingY / 2;
+
+    ctx.fillText(Text, xText, yText);
   }
 }
 

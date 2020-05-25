@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
-import Sidebar from "./Sidebar";
+import React, { useContext, useState } from "react";
+import Sidebar from "./Sidebar/Sidebar";
 import GraphContainer from "./Graph/GraphContainer";
-import Dashboard from "./Dashboard";
-import Messages from "./Messages";
-import GraphInfo from "./Graph/GraphInfo";
+import Dashboard from "./Dashboard/Dashboard";
+import Messages from "./Global_Components/Messages";
 import { DataContext } from "./Store/Data";
 import requestAll from "./Global_Components/parseData";
 import { StoreContext } from "./Store/Store";
@@ -11,6 +10,7 @@ import { StoreContext } from "./Store/Store";
 function Simulator() {
   const [state] = useContext(StoreContext);
   const [data, dispatch] = useContext(DataContext);
+  const [client, setClient] = useState({ x: 0, y: 0 });
 
   // Loading data from API
   const loadData = async () => {
@@ -27,15 +27,10 @@ function Simulator() {
       </div>
     );
   } else {
+    // Rendering the selected graph types due Analytics
     const graphs = [];
-    let graphsCount = 0;
-    state.animation.shown.forEach((e) => {
-      if (e !== null) {
-        graphsCount++;
-      }
-    });
-    console.log(graphsCount);
-    state.animation.shown.map((element, index) => {
+    const graphList = state.animation.shown.filter((e) => e !== null);
+    graphList.forEach((element, index) => {
       let ToShow;
       switch (element) {
         case "Chosen":
@@ -47,8 +42,6 @@ function Simulator() {
         case "Capital Available":
           ToShow = state.user.history.capitalAvailable;
           break;
-        case null:
-          return;
         default:
           ToShow = element;
           break;
@@ -56,8 +49,8 @@ function Simulator() {
       graphs.push(
         <GraphContainer
           key={"GPH" + index}
-          width={graphsCount === 1 ? "100%" : "50%"}
-          height={graphsCount === 1 ? "100%" : "50%"}
+          width={graphList.length === 1 ? "100%" : "50%"}
+          height={graphList.length === 1 ? "100%" : "50%"}
           show={ToShow}
           title={element}
         />

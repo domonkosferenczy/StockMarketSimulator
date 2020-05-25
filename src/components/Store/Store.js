@@ -21,8 +21,7 @@ const initialState = {
     paused: true,
     zoom: 10,
     chosen: "AAPL",
-    // shown: ["Chosen", "Capital Available", "GOOG", "Value Of Stocks"],
-    shown: ["Chosen", null, null, null],
+    shown: ["Chosen", "Capital Available", "GOOG", "Value Of Stocks"],
   },
   filter: {
     search: "",

@@ -1,7 +1,7 @@
 import React from "react";
-import Trade from "./Dashboard/Trade";
-import Animation from "./Dashboard/Animation";
-import Analytics from "./Dashboard/Analytics";
+import Trade from "./Trade";
+import Animation from "./Animation";
+import Analytics from "./Analytics";
 
 function Dashboard() {
   return (

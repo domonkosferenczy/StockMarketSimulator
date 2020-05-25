@@ -1,6 +1,6 @@
 import React from "react";
-import SidebarHeader from "./Sidebar/SidebarHeader";
-import AvailableStocks from "./Sidebar/AvailableStocks";
+import SidebarHeader from "./SidebarHeader";
+import AvailableStocks from "./AvailableStocks";
 
 function Sidebar() {
   return (
