@@ -78,7 +78,7 @@ function StocksList() {
   } else {
     return (
       <div className="StocksList">
-        <div className="StocksList-NoFound">No Found</div>
+        <div className="StocksList-NoFound">Not Found</div>
       </div>
     );
   }

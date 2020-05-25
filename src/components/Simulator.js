@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Sidebar from "./Sidebar/Sidebar";
 import GraphContainer from "./Graph/GraphContainer";
 import Dashboard from "./Dashboard/Dashboard";
@@ -10,7 +10,6 @@ import { StoreContext } from "./Store/Store";
 function Simulator() {
   const [state] = useContext(StoreContext);
   const [data, dispatch] = useContext(DataContext);
-  const [client, setClient] = useState({ x: 0, y: 0 });
 
   // Loading data from API
   const loadData = async () => {

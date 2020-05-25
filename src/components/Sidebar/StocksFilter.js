@@ -53,10 +53,7 @@ function StocksFilter() {
           O
         </button>
       </div>
-      <input
-        placeholder="Type the name of the Stock"
-        onChange={handleChangeInput}
-      />
+      <input placeholder="Ticker Name" onChange={handleChangeInput} />
     </div>
   );
 }

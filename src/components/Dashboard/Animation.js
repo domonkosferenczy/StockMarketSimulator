@@ -134,7 +134,7 @@ function Animation() {
       // Calculating the present value of the Stocks
       const historyValueOfStocks = state.user.history.valueOfStocks;
       const historyCapitalAvailable = state.user.history.capitalAvailable;
-      allDates.map((date) => {
+      allDates.forEach((date) => {
         const valueOfStocks = Object.keys(ownedStocks).reduce(
           (accumulator, stock) => {
             const number = ownedStocks[stock].numberOfStocks;

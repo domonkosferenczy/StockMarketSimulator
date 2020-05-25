@@ -1,5 +1,3 @@
-import { convertToRealY } from "./GraphFunctions";
-
 function LinePoints(state, data, propsInObject, ctx) {
   const props = propsInObject;
 
