@@ -3,9 +3,9 @@ import Sidebar from "./Sidebar/Sidebar";
 import GraphContainer from "./Graph/GraphContainer";
 import Dashboard from "./Dashboard/Dashboard";
 import Messages from "./Global_Components/Messages";
-import { DataContext } from "./Store/Data";
-import requestAll from "./Global_Components/parseData";
-import { StoreContext } from "./Store/Store";
+import { DataContext } from "../Store/Data";
+import requestAll from "../api/parseData";
+import { StoreContext } from "../Store/Store";
 
 function Simulator() {
   const [state] = useContext(StoreContext);
@@ -28,30 +28,14 @@ function Simulator() {
   } else {
     // Rendering the selected graph types due Analytics
     const graphs = [];
-    const graphList = state.animation.shown.filter((e) => e !== null);
+    const graphList = state.animation.shown.filter(Boolean);
     graphList.forEach((element, index) => {
-      let ToShow;
-      switch (element) {
-        case "Chosen":
-          ToShow = state.animation.chosen;
-          break;
-        case "Value Of Stocks":
-          ToShow = state.user.history.valueOfStocks;
-          break;
-        case "Capital Available":
-          ToShow = state.user.history.capitalAvailable;
-          break;
-        default:
-          ToShow = element;
-          break;
-      }
       graphs.push(
         <GraphContainer
           key={"GPH" + index}
           width={graphList.length === 1 ? "100%" : "50%"}
           height={graphList.length === 1 ? "100%" : "50%"}
-          show={ToShow}
-          title={element}
+          show={element}
         />
       );
     });

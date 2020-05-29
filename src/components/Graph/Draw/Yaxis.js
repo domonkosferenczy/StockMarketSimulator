@@ -1,5 +1,5 @@
 import { formatMoney } from "components/Global_Components/calculations";
-import { drawLine } from "./GraphFunctions";
+import { drawLine } from "../GraphFunctions";
 
 function Yaxis(propsInObject, ctx) {
   const props = propsInObject;

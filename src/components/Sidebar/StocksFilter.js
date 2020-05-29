@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Arrow from "../Global_Components/Arrow";
-import { SET_FILTER_INPUT, SET_FILTER_TYPE } from "components/Store/Actions";
-import { StoreContext } from "components/Store/Store";
+import { SET_FILTER_INPUT, SET_FILTER_TYPE } from "Store/Actions";
+import { StoreContext } from "Store/Store";
 
 function StocksFilter() {
   const [state, dispatch] = useContext(StoreContext);

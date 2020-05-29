@@ -1,5 +1,5 @@
 import React from "react";
-import Graph from "./Graph";
+import Graph from "./Draw/Graph";
 
 function GraphContainer(props) {
   return (

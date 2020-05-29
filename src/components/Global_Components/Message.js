@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { StoreContext } from "components/Store/Store";
+import { StoreContext } from "Store/Store";
 import ExplSource from "images/expl.svg";
 
 function Message(props) {

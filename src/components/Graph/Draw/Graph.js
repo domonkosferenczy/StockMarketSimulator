@@ -3,9 +3,9 @@ import Xaxis from "./Xaxis";
 import Yaxis from "./Yaxis";
 import LinePoints from "./LinePoints";
 import CandlePoints from "./CandlePoints";
-import GraphInfo from "./GraphInfo";
-import { StoreContext } from "../Store/Store";
-import { DataContext } from "../Store/Data";
+import GraphInfo from "../GraphInfo";
+import { StoreContext } from "../../../Store/Store";
+import { DataContext } from "../../../Store/Data";
 import { useContainerSize, minAndMax } from "components/Graph/GraphFunctions";
 import "stylesheet/graph.css";
 
@@ -15,9 +15,25 @@ function Graph(props) {
 
   const [color, setColor] = useState("candle");
   const container = useContainerSize();
+  const canvasRef = useRef(null);
 
   // Constants for data
-  const show = props.show;
+  let show;
+  switch (props.show) {
+    case "Chosen":
+      show = state.animation.chosen;
+      break;
+    case "Value Of Stocks":
+      show = state.user.history.valueOfStocks;
+      break;
+    case "Capital Available":
+      show = state.user.history.capitalAvailable;
+      break;
+    default:
+      show = props.show;
+      break;
+  }
+
   let chosenDatapoints;
   if (typeof show === "string") {
     chosenDatapoints = data.stocks[show].datapoints;
@@ -75,14 +91,14 @@ function Graph(props) {
     offsetX: offsetX,
     color: color,
   };
-  const canvasRef = useRef(null);
 
-  // Redrawing canvas
-  useEffect(() => {
+  // Drawing on canvas
+  const drawGraph = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    // Drawing parts of the graph
     Xaxis(state, data, propsInObject, ctx);
     Yaxis(propsInObject, ctx);
     if (color === "candle" && typeof show === "string") {
@@ -90,7 +106,19 @@ function Graph(props) {
     } else {
       LinePoints(state, data, propsInObject, ctx);
     }
-  }, [state, container, data, propsInObject, color, show]);
+  };
+
+  // Re-render condition
+  let refreshWhen = state.animation.currentDate;
+  if (typeof show === "object") {
+    refreshWhen = show;
+  }
+
+  // Re-drawing canvas
+  useEffect(() => {
+    drawGraph();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [refreshWhen, container, color]);
 
   return (
     <div className="Graph">
@@ -101,7 +129,7 @@ function Graph(props) {
         height={container.height}
       ></canvas>
       <GraphInfo
-        title={props.title}
+        show={props.show}
         color={color}
         colorHandler={(color) => setColor(color)}
       />

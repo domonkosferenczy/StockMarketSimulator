@@ -1,4 +1,4 @@
-import { drawLine } from "./GraphFunctions";
+import { drawLine } from "../GraphFunctions";
 
 function Xaxis(state, data, propsInObject, ctx) {
   const props = propsInObject;

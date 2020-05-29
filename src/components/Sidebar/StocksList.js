@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import StocksListElement from "components/Sidebar/StocksListElement";
-import { StoreContext } from "components/Store/Store";
-import { DataContext } from "components/Store/Data";
+import { StoreContext } from "Store/Store";
+import { DataContext } from "Store/Data";
 
 function StocksList() {
   const [state] = useContext(StoreContext);

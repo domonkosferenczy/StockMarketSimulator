@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
-import { StoreContext } from "components/Store/Store";
-import { DataContext } from "components/Store/Data";
+import { StoreContext } from "Store/Store";
+import { DataContext } from "Store/Data";
 import Faster from "images/faster.svg";
 import Play from "images/play.svg";
 import PlayEnd from "images/playEnd.svg";
@@ -13,7 +13,7 @@ import {
   INCR_SPEED,
   INCR_ZOOM,
   SET_CURRENT_DATE,
-} from "components/Store/Actions";
+} from "Store/Actions";
 
 function Animation() {
   const [state, dispatch] = useContext(StoreContext);

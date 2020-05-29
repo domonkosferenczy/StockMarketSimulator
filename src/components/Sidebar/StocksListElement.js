@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import Arrow from "../Global_Components/Arrow";
-import { StoreContext } from "components/Store/Store";
+import { StoreContext } from "Store/Store";
 import { formatMoney } from "components/Global_Components/calculations";
-import { SET_CHOSEN } from "components/Store/Actions";
+import { SET_CHOSEN } from "Store/Actions";
 
 function StocksListElement(props) {
   const [, dispatch] = useContext(StoreContext);

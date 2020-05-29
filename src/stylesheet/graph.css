@@ -3,34 +3,6 @@
   transition: transform 0.3s;
 }
 
-.GridLine {
-  fill: none;
-  stroke: #777777;
-  stroke-linecap: round;
-}
-.GridTextX {
-  transform: rotateX(180deg) rotateZ(-45deg);
-  transform-origin: center center;
-  transform-box: fill-box;
-  fill: #ffffff;
-}
-.GridTextY {
-  transform: rotateX(180deg);
-  transform-origin: transform;
-  transform-box: fill-box;
-  fill: #ffffff;
-}
-.Polygon {
-  fill: rgba(57, 207, 68, 0.54);
-  opacity: 1;
-  stroke: transparent;
-  stroke-width: 0;
-}
-.Polyline {
-  fill: transparent;
-  stroke: white;
-}
-
 .GraphInfo {
   position: absolute;
   top: 0;
@@ -55,4 +27,8 @@
   visibility: hidden;
   width: 0;
   position: relative;
+}
+
+.GraphInfo-alt select {
+  width: 100%;
 }

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { StoreContext } from "components/Store/Store";
+import { StoreContext } from "Store/Store";
 import Message from "components/Global_Components/Message";
 
 function Messages() {

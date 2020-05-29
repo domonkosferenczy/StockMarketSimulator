@@ -2,10 +2,10 @@ import React from "react";
 import arrow from "images/play.svg";
 
 function GraphInfo(props) {
-  const title = props.title;
+  const title = props.show;
 
   const candleAvailable =
-    props.title !== "Capital Available" && props.title !== "Value Of Stocks";
+    title !== "Capital Available" && title !== "Value Of Stocks";
 
   return (
     <div className="GraphInfo">

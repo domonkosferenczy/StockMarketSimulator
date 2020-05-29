@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
-import { StoreContext } from "components/Store/Store";
-import { DataContext } from "components/Store/Data";
+import { StoreContext } from "Store/Store";
+import { DataContext } from "Store/Data";
 import {
   formatMoney,
   formatDoubleNumbers,
@@ -9,7 +9,7 @@ import {
   INCR_CAPITAL,
   INCR_OWNED_STOCKS,
   ADD_OWNED_STOCKS,
-} from "components/Store/Actions";
+} from "Store/Actions";
 
 function Trade() {
   const [state, dispatch] = useContext(StoreContext);

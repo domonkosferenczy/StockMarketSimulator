@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import Arrow from "../Global_Components/Arrow";
-import { StoreContext } from "components/Store/Store";
+import { StoreContext } from "Store/Store";
 import {
   formatDate,
   formatMoney,
 } from "components/Global_Components/calculations";
-import { DataContext } from "components/Store/Data";
+import { DataContext } from "Store/Data";
 
 function SidebarHeader() {
   const [state] = useContext(StoreContext);

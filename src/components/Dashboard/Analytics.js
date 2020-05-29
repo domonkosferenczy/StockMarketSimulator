@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
-import { StoreContext } from "components/Store/Store";
-import { DataContext } from "components/Store/Data";
+import { StoreContext } from "Store/Store";
+import { DataContext } from "Store/Data";
 
 function Analytics() {
   const [state, dispatch] = useContext(StoreContext);
