@@ -100,7 +100,10 @@ function Animation() {
       let shownFromData =
         dates[
           dates.indexOf(currentDate) -
-            (12 * (onlyDates.length / 12)) / (state.animation.zoom + val)
+            12 *
+              Math.round(
+                Math.round(allDates.length / 12) / (state.animation.zoom + val)
+              )
         ];
       if (shownFromData === undefined) {
         shownFromData = dates[0];

@@ -13,7 +13,6 @@ const requestAll = async () => {
   let lastDate = "0000-00-00";
   for (let i = 0; i <= tickers.length - 1; i++) {
     const requestStockData = await requestStock(tickers[i]);
-    console.log(lastDate);
     console.log(requestStockData.dates[requestStockData.dates.length - 1]);
 
     if (lastDate < requestStockData.dates[requestStockData.dates.length - 1]) {
