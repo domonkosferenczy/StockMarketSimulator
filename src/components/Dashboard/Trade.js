@@ -18,25 +18,46 @@ function Trade() {
   // Constants for data
   const chosen = state.animation.chosen;
   const currentDate = state.animation.currentDate;
-  const currentDataPoint = data.stocks[chosen].datapoints[currentDate];
+  let currentDataPoint = data.stocks[chosen].datapoints[currentDate];
+  if (currentDataPoint === undefined) {
+    currentDataPoint = 0;
+  }
   const ownedStocks = state.user.ownedStocks;
   const includesChosen = Object.keys(ownedStocks).includes(chosen);
 
   // State for input handling
-  const initalState = {
-    buy: {
-      count: 1,
-      focus: false,
-      value: 1 * currentDataPoint.close,
-    },
-    sell: {
-      count: includesChosen && ownedStocks[chosen].numberOfStocks > 0 ? 1 : 0,
-      focus: false,
-      value:
-        (includesChosen && ownedStocks[chosen].numberOfStocks > 0 ? 1 : 0) *
-        currentDataPoint.close,
-    },
-  };
+  let initalState;
+  if (currentDataPoint !== undefined) {
+    initalState = {
+      buy: {
+        count: 1,
+        focus: false,
+        value: 1 * currentDataPoint.close,
+      },
+      sell: {
+        count: includesChosen && ownedStocks[chosen].numberOfStocks > 0 ? 1 : 0,
+        focus: false,
+        value:
+          (includesChosen && ownedStocks[chosen].numberOfStocks > 0 ? 1 : 0) *
+          currentDataPoint.close,
+      },
+    };
+  } else {
+    initalState = {
+      buy: {
+        count: 1,
+        focus: false,
+        value: 1 * 0,
+      },
+      sell: {
+        count: includesChosen && ownedStocks[chosen].numberOfStocks > 0 ? 1 : 0,
+        focus: false,
+        value:
+          (includesChosen && ownedStocks[chosen].numberOfStocks > 0 ? 1 : 0) *
+          0,
+      },
+    };
+  }
 
   const [localState, setlocalState] = useState(initalState);
 

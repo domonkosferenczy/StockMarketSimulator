@@ -23,37 +23,41 @@ function CandlePoints(state, data, propsInObject, ctx) {
 
   // Rendering candles and graph points
   const candles = datapoints.forEach((datapoint, index) => {
-    let color = "#5AEE64";
-    if (index - 1 >= 0 && datapoints[index - 1].close > datapoint.close) {
-      color = "#EE5A5A";
+    try {
+      let color = "#5AEE64";
+      if (index - 1 >= 0 && datapoints[index - 1].close > datapoint.close) {
+        color = "#EE5A5A";
+      }
+
+      // Calculating X and Y values
+      const x = calX(index);
+      const close = calY(datapoint.close);
+      const open = calY(datapoint.open);
+      const high = calY(datapoint.high);
+      const low = calY(datapoint.low);
+
+      drawLine(
+        x,
+        props.renderSize.height - close,
+        x,
+        props.renderSize.height - open,
+        color,
+        width,
+        ctx
+      );
+
+      drawLine(
+        x,
+        props.renderSize.height - high,
+        x,
+        props.renderSize.height - low,
+        color,
+        width / 10,
+        ctx
+      );
+    } catch {
+      // Missing datapoint
     }
-
-    // Calculating X and Y values
-    const x = calX(index);
-    const close = calY(datapoint.close);
-    const open = calY(datapoint.open);
-    const high = calY(datapoint.high);
-    const low = calY(datapoint.low);
-
-    drawLine(
-      x,
-      props.renderSize.height - close,
-      x,
-      props.renderSize.height - open,
-      color,
-      width,
-      ctx
-    );
-
-    drawLine(
-      x,
-      props.renderSize.height - high,
-      x,
-      props.renderSize.height - low,
-      color,
-      width / 10,
-      ctx
-    );
   });
 
   return candles;

@@ -21,19 +21,23 @@ function LinePoints(state, data, propsInObject, ctx) {
 
   // Rendering graph points
   datapoints.forEach((datapoint, index) => {
-    if (typeof datapoint === "number") {
-      let temp = datapoint;
-      datapoint = {};
-      datapoint["close"] = temp;
-    } else if (datapoint === undefined) {
-      datapoint = {};
-      datapoint["close"] = props.min;
-    }
+    try {
+      if (typeof datapoint === "number") {
+        let temp = datapoint;
+        datapoint = {};
+        datapoint["close"] = temp;
+      } else if (datapoint === undefined) {
+        datapoint = {};
+        datapoint["close"] = props.min;
+      }
 
-    // Calculating X and Y values
-    const x = calX(index);
-    const close = props.renderSize.height - calY(datapoint.close);
-    ctx.lineTo(x, close);
+      // Calculating X and Y values
+      const x = calX(index);
+      const close = props.renderSize.height - calY(datapoint.close);
+      ctx.lineTo(x, close);
+    } catch {
+      // Missing datapoint
+    }
   });
 
   // Endpoint for fill

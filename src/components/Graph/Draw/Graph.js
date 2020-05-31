@@ -61,8 +61,8 @@ function Graph(props) {
   const offsetX = padding.vertical + renderSize.width * 0.06;
   const lines = { X: 13, Y: 6 };
   const distY = renderSize.height / lines.Y;
-  const zoomRatio = Math.round(
-    Math.round(allDates.length / (lines.X - 1)) / state.animation.zoom
+  let zoomRatio = Math.round(
+    allDates.length / state.animation.zoom / (lines.X - 1)
   );
   let distance = 0;
 
@@ -118,7 +118,13 @@ function Graph(props) {
   useEffect(() => {
     drawGraph();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [refreshWhen, container, color]);
+  }, [
+    refreshWhen,
+    container,
+    color,
+    state.animation.zoom,
+    state.animation.chosen,
+  ]);
 
   return (
     <div className="Graph">

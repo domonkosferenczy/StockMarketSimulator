@@ -19,7 +19,12 @@ function StocksList() {
   const StocksListElements = Object.keys(data.stocks).map((stock) => {
     // Constants of a stock
     const stockData = data.stocks[stock].datapoints;
-    const currentPrice = stockData[currentDate].close;
+    let currentPrice;
+    try {
+      currentPrice = stockData[currentDate].close;
+    } catch {
+      currentPrice = NaN;
+    }
     let owned = 0;
     let value = 0;
     let dir = "line";
@@ -29,9 +34,15 @@ function StocksList() {
     if (prevDate === undefined) {
       prevDate = currentDate;
     }
-    if (currentPrice > stockData[prevDate].close) {
+    let prevDateValue;
+    try {
+      prevDateValue = stockData[prevDate].close;
+    } catch {
+      prevDateValue = NaN;
+    }
+    if (currentPrice > prevDateValue) {
       dir = "up";
-    } else if (currentPrice < stockData[prevDate].close) {
+    } else if (currentPrice < prevDateValue) {
       dir = "down";
     }
 

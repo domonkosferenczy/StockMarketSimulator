@@ -20,6 +20,7 @@ function Animation() {
   const [data] = useContext(DataContext);
 
   // Constants for data
+  const onlyDates = data.dates;
   const currentDate = state.animation.currentDate;
   const paused = state.animation.paused;
   const dates = data.dates;
@@ -32,7 +33,7 @@ function Animation() {
     allDates.indexOf(currentDate) + 1
   );
   const zoomRatio = Math.round(
-    Math.round(allDates.length / 12) / state.animation.zoom
+    Math.round(onlyDates.length / 12) / state.animation.zoom
   );
 
   // Function of one tick
@@ -48,7 +49,10 @@ function Animation() {
         }
         dispatch({
           type: GRAPH_MOVE,
-          payload: { currentDate: nextDate, shownFromData: shownFromDate },
+          payload: {
+            currentDate: nextDate,
+            shownFromData: shownFromDate,
+          },
         });
       } else {
         dispatch({ type: SET_CURRENT_DATE, payload: nextDate });
@@ -96,10 +100,7 @@ function Animation() {
       let shownFromData =
         dates[
           dates.indexOf(currentDate) -
-            12 *
-              Math.round(
-                Math.round(allDates.length / 12) / (state.animation.zoom + val)
-              )
+            (12 * (onlyDates.length / 12)) / (state.animation.zoom + val)
         ];
       if (shownFromData === undefined) {
         shownFromData = dates[0];

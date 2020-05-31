@@ -19,7 +19,7 @@ function Xaxis(state, data, propsInObject, ctx) {
   const datesToRender = [];
 
   // Calculating rendering X axis dates
-  for (let i = 0; i < shownDates.length; i += props.zoomRatio) {
+  for (let i = 0; i < shownDates.length; i += Math.floor(props.zoomRatio)) {
     const date = shownDates[i].slice(5).replace("-", ". ") + ".";
     datesToRender.push(date);
   }
