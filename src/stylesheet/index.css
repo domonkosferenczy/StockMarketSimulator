@@ -382,7 +382,7 @@ code {
   border-right: 0;
   border-bottom: 0;
   position: relative;
-  transition: all 0.3s;
+  transition: width 0.3s, height 0.3s;
   animation: showAnimation 1s ease;
   transform: scale(1);
 }
@@ -406,10 +406,11 @@ code {
   from {
     transform: scale(0);
     opacity: 0;
-    display: none;
+    display: flex;
   }
   to {
     transform: scale(1);
+    opacity: 1;
   }
 }
 
