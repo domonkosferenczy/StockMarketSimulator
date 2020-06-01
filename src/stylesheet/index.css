@@ -73,7 +73,18 @@ code {
 .SidebarHeader {
   background: var(--darkestGrey);
   text-shadow: 0 0 1px #fff;
+  animation: sidebarHeaderShow 0.6s ease;
+  position: relative;
 }
+
+/*@keyframes sidebarHeaderShow {
+  from {
+    bottom: 40%;
+  }
+  to {
+    bottom: 0%;
+  }
+}*/
 
 .SidebarHeader-row {
   font-size: 2em;
@@ -97,7 +108,18 @@ code {
   display: flex;
   flex-direction: column;
   overflow: auto;
+  animation: availableStocksShow 0.6s ease;
+  position: relative;
 }
+
+/*@keyframes availableStocksShow {
+  from {
+    top: 60%;
+  }
+  to {
+    top: 0%;
+  }
+}*/
 
 .AvailableStocks > div:first-child {
   border-bottom: 1px solid var(--borderGrey);
@@ -235,7 +257,18 @@ code {
   width: 100%;
   background: var(--midGrey);
   justify-content: stretch;
+  position: relative;
+  animation: dashboardShow 0.6s ease 0s forwards;
 }
+
+/*@keyframes dashboardShow {
+  from {
+    top: 30%;
+  }
+  to {
+    top: 0%;
+  }
+}*/
 
 .Trade,
 .Analytics,
@@ -364,6 +397,7 @@ code {
   align-items: center;
   flex-wrap: wrap;
   height: 100%;
+  position: relative;
 }
 
 .GraphContainer {
@@ -382,13 +416,16 @@ code {
   border-right: 0;
   border-bottom: 0;
   position: relative;
-  transition: width 0.3s, height 0.3s;
-  animation: showAnimation 1s ease;
+  transition: width 0.4s, height 0.4s;
   transform: scale(1);
 }
 
+.showAnimation {
+  animation: showAnimation 0.6s ease;
+}
+
 .hideGraph {
-  animation: hideAnimation 1s ease;
+  animation: hideAnimation 0.4s ease 0s forwards;
 }
 
 @keyframes hideAnimation {
@@ -404,13 +441,15 @@ code {
 
 @keyframes showAnimation {
   from {
+    width: 50%;
+    height: 50%;
     transform: scale(0);
     opacity: 0;
-    display: flex;
   }
   to {
     transform: scale(1);
     opacity: 1;
+    display: flex;
   }
 }
 

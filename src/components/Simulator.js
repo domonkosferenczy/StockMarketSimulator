@@ -28,13 +28,16 @@ function Simulator() {
   } else {
     // Rendering the selected graph types due Analytics
     const graphs = [];
-    const graphList = state.animation.shown.filter(Boolean);
+    const graphList = state.animation.shown;
     graphList.forEach((element, index) => {
       graphs.push(
         <GraphContainer
           key={"GPH" + index}
-          width={graphList.length === 1 ? "100%" : "50%"}
-          height={graphList.length === 1 ? "100%" : "50%"}
+          width={graphList.filter(Boolean).length === 1 ? "100%" : "50%"}
+          height={graphList.filter(Boolean).length === 1 ? "100%" : "50%"}
+          position={
+            graphList.filter(Boolean).length === 1 ? "absolute" : "relative"
+          }
           show={element}
         />
       );

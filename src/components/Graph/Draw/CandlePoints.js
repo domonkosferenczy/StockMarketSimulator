@@ -9,7 +9,7 @@ function CandlePoints(state, data, propsInObject, ctx) {
   const zoomRatio = props.zoomRatio;
   let width = props.renderSize.width / zoomRatio / 20;
   if (state.animation.zoom <= 2) {
-    width *= 2;
+    width *= 3;
   }
 
   // Constants for data
