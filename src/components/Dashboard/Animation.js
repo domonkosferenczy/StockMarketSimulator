@@ -28,9 +28,9 @@ function Animation() {
 
   const chosenDatapoints = data.stocks[state.animation.chosen].datapoints;
   const allDates = Object.keys(chosenDatapoints);
-  const shownDates = allDates.slice(
-    allDates.indexOf(state.animation.shownFrom),
-    allDates.indexOf(currentDate) + 1
+  const shownDates = onlyDates.slice(
+    onlyDates.indexOf(state.animation.shownFrom),
+    onlyDates.indexOf(currentDate) + 1
   );
   const zoomRatio = Math.round(
     Math.round(onlyDates.length / 12) / state.animation.zoom
@@ -130,7 +130,7 @@ function Animation() {
     dispatch({ type: SET_PAUSED, payload: true });
     if (to === "start") {
       currentDate = dates[0];
-      shownFrom = allDates[0];
+      shownFrom = dates[0];
       dispatch({
         type: "CLEAR_HISTORY",
       });

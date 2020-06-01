@@ -4,7 +4,7 @@ import Graph from "./Draw/Graph";
 function GraphContainer(props) {
   return (
     <div
-      className="GraphContainer"
+      className={`GraphContainer`}
       id="GraphID"
       style={{ width: props.width, height: props.height }}
     >

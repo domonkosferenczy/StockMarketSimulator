@@ -382,6 +382,35 @@ code {
   border-right: 0;
   border-bottom: 0;
   position: relative;
+  transition: all 0.3s;
+  animation: showAnimation 1s ease;
+  transform: scale(1);
+}
+
+.hideGraph {
+  animation: hideAnimation 1s ease;
+}
+
+@keyframes hideAnimation {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+    opacity: 0;
+    display: none;
+  }
+}
+
+@keyframes showAnimation {
+  from {
+    transform: scale(0);
+    opacity: 0;
+    display: none;
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 .GraphTicker {
