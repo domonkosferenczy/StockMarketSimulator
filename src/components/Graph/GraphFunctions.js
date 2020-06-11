@@ -1,20 +1,24 @@
 import { useState, useLayoutEffect } from "react";
 
 // Return with the size of the GraphContainer in px
-export const useContainerSize = () => {
+export const useContainerSize = (index) => {
   const [size, setSize] = useState({ width: 0, height: 0 });
   useLayoutEffect(() => {
     function updateSize() {
-      const graphContainer = document.getElementById("GraphID");
+      console.log("runs");
+      const graphContainer = document.getElementById("GraphID" + index);
       setSize({
         width: graphContainer.offsetWidth * 2,
         height: graphContainer.offsetHeight * 2,
       });
     }
+    //window.addEventListener("animationend", updateSize);
+    window.addEventListener("animationstart", updateSize);
     window.addEventListener("resize", updateSize);
     window.addEventListener("fullscreenchange", updateSize);
     updateSize();
     return () => {
+      window.addEventListener("animationend", updateSize);
       window.removeEventListener("resize", updateSize);
       window.removeEventListener("fullscreenchange", updateSize);
     };

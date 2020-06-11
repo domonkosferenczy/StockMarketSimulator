@@ -4,6 +4,7 @@ import Yaxis from "./Yaxis";
 import LinePoints from "./LinePoints";
 import CandlePoints from "./CandlePoints";
 import GraphInfo from "../GraphInfo";
+import Marker from "./Marker";
 import { StoreContext } from "../../../Store/Store";
 import { DataContext } from "../../../Store/Data";
 import { useContainerSize, minAndMax } from "components/Graph/GraphFunctions";
@@ -14,7 +15,7 @@ function Graph(props) {
   const [data] = useContext(DataContext);
 
   const [color, setColor] = useState("candle");
-  const container = useContainerSize();
+  const container = useContainerSize(props.index);
   const canvasRef = useRef(null);
 
   // Constants for data
@@ -29,6 +30,9 @@ function Graph(props) {
     case "Capital Available":
       show = state.user.history.capitalAvailable;
       break;
+    case "timestamp":
+      show = state.animation.chosen;
+      break;
     default:
       show = props.show;
       break;
@@ -42,18 +46,26 @@ function Graph(props) {
   }
 
   const allDates = data.dates;
-  const shownFrom = allDates.indexOf(state.animation.shownFrom);
-  const shownTo = allDates.indexOf(state.animation.currentDate) + 1;
+  let shownFrom = allDates.indexOf(state.animation.shownFrom);
+  let shownTo = allDates.indexOf(state.animation.currentDate) + 1;
+  if (props.show === "timestamp") {
+    shownFrom = 0;
+    shownTo = allDates.length - 1;
+  }
   const shownDates = allDates.slice(shownFrom, shownTo);
   const shownDataPoints = shownDates.map((date, index) => {
     return chosenDatapoints[date];
   });
 
   // Constants for graphical
-  const padding = {
+  let padding = {
     horizontal: container.width / 40,
     vertical: container.height / 40,
   };
+  if (props.show === "timestamp") {
+    padding.horizontal = container.width / 80;
+    padding.vertical = container.height / 80;
+  }
   const renderSize = {
     width: container.width - padding.horizontal,
     height: container.height - padding.vertical,
@@ -64,6 +76,9 @@ function Graph(props) {
   let zoomRatio = Math.round(
     allDates.length / state.animation.zoom / (lines.X - 1)
   );
+  if (props.show === "timestamp") {
+    zoomRatio = Math.round(allDates.length / 1 / (lines.X - 1));
+  }
   let distance = 0;
 
   // Searching for the lowest and highest value
@@ -99,12 +114,21 @@ function Graph(props) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Drawing parts of the graph
-    Xaxis(state, data, propsInObject, ctx);
-    Yaxis(propsInObject, ctx);
-    if (color === "candle" && typeof show === "string") {
+    Xaxis(state, data, propsInObject, ctx, props.show);
+    if (props.show !== "timestamp") {
+      Yaxis(propsInObject, ctx);
+    }
+    if (
+      color === "candle" &&
+      typeof show === "string" &&
+      props.show !== "timestamp"
+    ) {
       CandlePoints(state, data, propsInObject, ctx);
     } else {
-      LinePoints(state, data, propsInObject, ctx);
+      LinePoints(state, data, propsInObject, ctx, props.show);
+    }
+    if (props.show === "timestamp") {
+      Marker(state, data, propsInObject, ctx);
     }
   };
 

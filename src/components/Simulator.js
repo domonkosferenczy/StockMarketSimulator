@@ -34,14 +34,24 @@ function Simulator() {
         <GraphContainer
           key={"GPH" + index}
           width={graphList.filter(Boolean).length === 1 ? "100%" : "50%"}
-          height={graphList.filter(Boolean).length === 1 ? "100%" : "50%"}
+          height={graphList.filter(Boolean).length === 1 ? "100%" : "40%"}
           position={
             graphList.filter(Boolean).length === 1 ? "absolute" : "relative"
           }
           show={element}
+          index={index}
         />
       );
     });
+    graphs.push(
+      <GraphContainer
+        key={"GPHL"}
+        width={"100%"}
+        height="20%"
+        show={"timestamp"}
+        index={5}
+      />
+    );
 
     return (
       <div className="App">

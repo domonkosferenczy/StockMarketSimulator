@@ -1,4 +1,4 @@
-function LinePoints(state, data, propsInObject, ctx) {
+function LinePoints(state, data, propsInObject, ctx, show) {
   const props = propsInObject;
 
   // Constants for graphical
@@ -68,6 +68,9 @@ function LinePoints(state, data, propsInObject, ctx) {
   }
 
   ctx.fillStyle = color;
+  if (show === "timestamp") {
+    ctx.fillStyle = "rgba(0,0,0,0)";
+  }
   ctx.strokeStyle = "white";
   ctx.fill();
   ctx.stroke();

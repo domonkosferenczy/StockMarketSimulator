@@ -1,6 +1,6 @@
 import { drawLine } from "../GraphFunctions";
 
-function Xaxis(state, data, propsInObject, ctx) {
+function Xaxis(state, data, propsInObject, ctx, show) {
   const props = propsInObject;
 
   // Constants for graphical
@@ -8,14 +8,18 @@ function Xaxis(state, data, propsInObject, ctx) {
   const height = props.renderSize.height;
   const paddingY = props.padding.horizontal;
   const paddingX = props.padding.vertical + props.renderSize.width / 20;
-  const fontCenter = props.renderSize.width * 0.01;
-  const offsetX = props.renderSize.width * 0.01;
+  let fontCenter = props.renderSize.width * 0.01;
+  if (show === "timestamp") {
+    fontCenter /= 16;
+  }
+  let offsetX = (props.offsetX - props.padding.vertical) / 6;
 
   // Constants for data
   const allDates = data.dates;
-  const shownDates = allDates.slice(
-    allDates.indexOf(state.animation.shownFrom)
-  );
+  let shownDates = allDates.slice(allDates.indexOf(state.animation.shownFrom));
+  if (show === "timestamp") {
+    shownDates = allDates.slice(1);
+  }
   const datesToRender = [];
 
   // Calculating rendering X axis dates
@@ -44,6 +48,9 @@ function Xaxis(state, data, propsInObject, ctx) {
 
     // Rendering X values
     ctx.font = `${width / 1000}em Bahnschrift`;
+    if (show === "timestamp") {
+      ctx.font = `${width / 1500}em Bahnschrift`;
+    }
     ctx.fillStyle = "white";
     const Text = datesToRender[i];
     const xText = xPos - fontCenter;

@@ -5,7 +5,9 @@ function GraphInfo(props) {
   const title = props.show;
 
   const candleAvailable =
-    title !== "Capital Available" && title !== "Value Of Stocks";
+    title !== "Capital Available" &&
+    title !== "Value Of Stocks" &&
+    title !== "timestamp";
 
   return (
     <div className="GraphInfo">
