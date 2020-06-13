@@ -29,17 +29,37 @@ function Simulator() {
     // Rendering the selected graph types due Analytics
     const graphs = [];
     const graphList = state.animation.shown;
+    let height = "50%";
+    if (state.animation.timestamp) {
+      height = "40%";
+    } else {
+      height = "50%";
+    }
+    let position = "relative";
+    let top = null;
+    let bottom = null;
+    if (graphList.filter(Boolean).length === 1 && state.animation.timestamp) {
+      position = "absolute";
+      top = 0;
+      bottom = 0;
+    }
+    if (graphList.filter(Boolean).length === 1) {
+      if (state.animation.timestamp) {
+        height = "80%";
+      } else {
+        height = "100%";
+      }
+    }
     graphList.forEach((element, index) => {
       graphs.push(
         <GraphContainer
           key={"GPH" + index}
           width={graphList.filter(Boolean).length === 1 ? "100%" : "50%"}
-          height={graphList.filter(Boolean).length === 1 ? "100%" : "40%"}
-          position={
-            graphList.filter(Boolean).length === 1 ? "absolute" : "relative"
-          }
+          height={height}
+          position={position}
           show={element}
           index={index}
+          top={top}
         />
       );
     });
@@ -50,6 +70,9 @@ function Simulator() {
         height="20%"
         show={"timestamp"}
         index={5}
+        position={position}
+        hide={!state.animation.timestamp}
+        bottom={bottom}
       />
     );
 

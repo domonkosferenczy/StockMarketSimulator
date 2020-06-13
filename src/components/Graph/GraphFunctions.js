@@ -5,21 +5,23 @@ export const useContainerSize = (index) => {
   const [size, setSize] = useState({ width: 0, height: 0 });
   useLayoutEffect(() => {
     function updateSize() {
-      console.log("runs");
       const graphContainer = document.getElementById("GraphID" + index);
       setSize({
         width: graphContainer.offsetWidth * 2,
         height: graphContainer.offsetHeight * 2,
       });
     }
-    //window.addEventListener("animationend", updateSize);
+    window.addEventListener("animationend", updateSize);
     window.addEventListener("animationstart", updateSize);
     window.addEventListener("resize", updateSize);
+    window.addEventListener("custom", updateSize);
     window.addEventListener("fullscreenchange", updateSize);
     updateSize();
     return () => {
       window.addEventListener("animationend", updateSize);
+      window.addEventListener("animationstart", updateSize);
       window.removeEventListener("resize", updateSize);
+      window.removeEventListener("custom", updateSize);
       window.removeEventListener("fullscreenchange", updateSize);
     };
   }, []);

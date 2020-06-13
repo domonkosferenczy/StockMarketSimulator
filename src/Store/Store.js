@@ -22,6 +22,7 @@ const initialState = {
     zoom: 10,
     chosen: "AAPL",
     shown: ["Chosen", "Capital Available", "GOOG", "Value Of Stocks"],
+    timestamp: true,
   },
   filter: {
     search: "",

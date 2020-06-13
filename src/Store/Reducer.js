@@ -152,6 +152,15 @@ const Reducer = (state, action) => {
         },
       };
 
+    case "CHANGE_TIMESTAMP":
+      return {
+        ...state,
+        animation: {
+          ...state.animation,
+          timestamp: action.payload,
+        },
+      };
+
     // Message
     case "ADD_MESSAGE":
       let newarray = state.message.messages;

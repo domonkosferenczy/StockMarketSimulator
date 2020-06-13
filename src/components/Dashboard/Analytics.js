@@ -51,6 +51,22 @@ function Analytics() {
     });
   };
 
+  const timestampHandler = (event) => {
+    console.log(event.target.checked);
+    dispatch({
+      type: "CHANGE_TIMESTAMP",
+      payload: event.target.checked,
+    });
+    let myEvent = new CustomEvent("custom", {
+      detail: {
+        hazcheeseburger: true,
+      },
+    });
+    setTimeout(() => {
+      window.dispatchEvent(myEvent);
+    }, 400);
+  };
+
   const selects = [];
   for (let i = 0; i < 4; i++) {
     let stocks = Object.keys(data.stocks);
@@ -81,6 +97,16 @@ function Analytics() {
       ANALYTICS
       <div className="AnalyticsSelects">
         <div>{selects}</div>
+        <div>
+          <input
+            type="checkbox"
+            name="timestamp"
+            value="timestamp"
+            checked={state.animation.timestamp}
+            onClick={timestampHandler}
+          />
+          <label>Timestamp</label>
+        </div>
       </div>
     </div>
   );
