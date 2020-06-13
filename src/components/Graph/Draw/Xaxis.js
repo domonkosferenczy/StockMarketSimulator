@@ -7,12 +7,11 @@ function Xaxis(state, data, propsInObject, ctx, show) {
   const width = props.renderSize.width;
   const height = props.renderSize.height;
   const paddingY = props.padding.horizontal;
-  const paddingX = props.padding.vertical + props.renderSize.width / 20;
-  let fontCenter = props.renderSize.width * 0.01;
+  let fontCenter = props.renderSize.width * 0.046;
   if (show === "timestamp") {
-    fontCenter /= 16;
+    fontCenter /= 2.5;
   }
-  let offsetX = (props.offsetX - props.padding.vertical) / 6;
+  let offsetX = props.offsetX;
 
   // Constants for data
   const allDates = data.dates;
@@ -33,7 +32,7 @@ function Xaxis(state, data, propsInObject, ctx, show) {
 
   // Rendering X axis elements
   for (let i = 0; i <= 12; i++) {
-    const xPos = (i * width) / props.lines.X + paddingX;
+    const xPos = (i * width) / props.lines.X;
     const lineX = xPos + offsetX;
 
     // Rendering X lines
@@ -53,8 +52,8 @@ function Xaxis(state, data, propsInObject, ctx, show) {
     }
     ctx.fillStyle = "white";
     const Text = datesToRender[i];
-    const xText = xPos - fontCenter;
-    const yText = height - paddingY / 2;
+    const xText = xPos + fontCenter;
+    const yText = height - paddingY / 2.5;
 
     ctx.fillText(Text, xText, yText);
   }

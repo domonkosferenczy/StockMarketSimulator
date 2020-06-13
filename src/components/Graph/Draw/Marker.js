@@ -7,12 +7,7 @@ function Marker(state, data, propsInObject, ctx) {
   const paddingY = props.padding.horizontal;
   const offsetX = props.offsetX;
   const zoomRatio = props.zoomRatio;
-  let width = props.renderSize.width / zoomRatio / 20;
-  if (state.animation.zoom <= 2) {
-    width *= 3;
-  }
-
-  // Constants for data
+  let width = props.renderSize.width / 800;
 
   // Functions to calculate X and Y values
   const calX = (index) =>
@@ -20,7 +15,6 @@ function Marker(state, data, propsInObject, ctx) {
   // Rendering candles and graph points
 
   // Calculating X and Y values
-  const allDates = data.dates;
   const xShownFrom = calX(data.dates.indexOf(state.animation.shownFrom));
   const xShownTo = calX(data.dates.indexOf(state.animation.currentDate));
 

@@ -70,7 +70,10 @@ function Graph(props) {
     width: container.width - padding.horizontal,
     height: container.height - padding.vertical,
   };
-  const offsetX = padding.vertical + renderSize.width * 0.06;
+  let offsetX = padding.vertical + renderSize.width * 0.06;
+  if (props.show === "timestamp") {
+    offsetX /= 2;
+  }
   const lines = { X: 13, Y: 6 };
   const distY = renderSize.height / lines.Y;
   let zoomRatio = Math.round(
@@ -89,6 +92,10 @@ function Graph(props) {
     distance = edge.max + Math.abs(edge.min);
   } else {
     distance = edge.max - edge.min;
+  }
+
+  if (props.show === "timestamp") {
+    distance *= 1.2;
   }
 
   const intervalY = distance / lines.Y;
@@ -111,12 +118,18 @@ function Graph(props) {
   const drawGraph = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#3d3d3d";
+    if (props.show === "timestamp") {
+      ctx.fillStyle = "#414141";
+    }
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Drawing parts of the graph
     Xaxis(state, data, propsInObject, ctx, props.show);
     if (props.show !== "timestamp") {
       Yaxis(propsInObject, ctx);
+    } else {
+      Marker(state, data, propsInObject, ctx);
     }
     if (
       color === "candle" &&
@@ -126,9 +139,6 @@ function Graph(props) {
       CandlePoints(state, data, propsInObject, ctx);
     } else {
       LinePoints(state, data, propsInObject, ctx, props.show);
-    }
-    if (props.show === "timestamp") {
-      Marker(state, data, propsInObject, ctx);
     }
   };
 

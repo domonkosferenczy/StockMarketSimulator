@@ -98,6 +98,8 @@ function Analytics() {
       <div className="AnalyticsSelects">
         <div>{selects}</div>
         <div>
+          <label>Timestamp</label>
+
           <input
             type="checkbox"
             name="timestamp"
@@ -105,7 +107,6 @@ function Analytics() {
             checked={state.animation.timestamp}
             onClick={timestampHandler}
           />
-          <label>Timestamp</label>
         </div>
       </div>
     </div>

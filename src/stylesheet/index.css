@@ -532,6 +532,10 @@ code {
   padding: 0 1em;
 }
 
+.AnalyticsSelects div label {
+  color: #fff;
+}
+
 select {
   background: #3d3d3d;
   font-family: Bahnschrift;
