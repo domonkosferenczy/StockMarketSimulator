@@ -239,6 +239,19 @@ const Reducer = (state, action) => {
         },
       };
 
+    case "ADD_HISTORY_ACTION":
+      let payload = state.user.history.actions;
+      payload.push(action.payload);
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          history: {
+            ...state.user.history,
+            actions: payload,
+          },
+        },
+      };
     case "CLEAR_HISTORY":
       return {
         ...state,
@@ -247,6 +260,7 @@ const Reducer = (state, action) => {
           history: {
             valueOfStocks: {},
             capitalAvailable: {},
+            actions: [],
           },
         },
       };

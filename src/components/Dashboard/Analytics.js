@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { StoreContext } from "Store/Store";
 import { DataContext } from "Store/Data";
+import { downloadReport } from "../../api/download";
 
 function Analytics() {
   const [state, dispatch] = useContext(StoreContext);
@@ -52,19 +53,10 @@ function Analytics() {
   };
 
   const timestampHandler = (event) => {
-    console.log(event.target.checked);
     dispatch({
       type: "CHANGE_TIMESTAMP",
       payload: event.target.checked,
     });
-    let myEvent = new CustomEvent("custom", {
-      detail: {
-        hazcheeseburger: true,
-      },
-    });
-    setTimeout(() => {
-      window.dispatchEvent(myEvent);
-    }, 400);
   };
 
   const selects = [];
@@ -92,21 +84,27 @@ function Analytics() {
     );
   }
 
+  const downloadHandler = () => {
+    downloadReport(state.user.history);
+  };
+
   return (
     <div className="Analytics">
       ANALYTICS
       <div className="AnalyticsSelects">
         <div>{selects}</div>
-        <div>
+        <div className="DashboardButtons">
           <label>Timestamp</label>
-
           <input
             type="checkbox"
             name="timestamp"
             value="timestamp"
             checked={state.animation.timestamp}
-            onClick={timestampHandler}
+            onChange={timestampHandler}
           />
+          <button download="my_data.csv" onClick={downloadHandler}>
+            Download Report
+          </button>
         </div>
       </div>
     </div>

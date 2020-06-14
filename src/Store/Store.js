@@ -12,6 +12,7 @@ const initialState = {
     history: {
       capitalAvailable: { "2016-01-04": 0 },
       valueOfStocks: { "2016-01-04": 0 },
+      actions: [],
     },
   },
   animation: {

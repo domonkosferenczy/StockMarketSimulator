@@ -73,11 +73,27 @@ function Trade() {
           type: INCR_OWNED_STOCKS,
           payload: { ticker: chosen, number: localState.buy.count },
         });
+        dispatch({
+          type: "ADD_HISTORY_ACTION",
+          payload: {
+            date: state.animation.currentDate,
+            ticker: chosen,
+            number: localState.buy.count,
+          },
+        });
       } else {
         // Adding the new owned stock element
         dispatch({
           type: ADD_OWNED_STOCKS,
           payload: { ticker: chosen, number: localState.buy.count },
+        });
+        dispatch({
+          type: "ADD_HISTORY_ACTION",
+          payload: {
+            date: state.animation.currentDate,
+            ticker: chosen,
+            number: localState.buy.count,
+          },
         });
       }
     } else {
@@ -97,6 +113,14 @@ function Trade() {
           payload: { ticker: chosen, number: -1 * localState.sell.count },
         });
         dispatch({ type: INCR_CAPITAL, payload: localState.sell.value });
+        dispatch({
+          type: "ADD_HISTORY_ACTION",
+          payload: {
+            date: state.animation.currentDate,
+            ticker: chosen,
+            number: -1 * localState.buy.count,
+          },
+        });
       } else {
         dispatch({
           type: "ADD_MESSAGE",
