@@ -17,6 +17,9 @@ function Xaxis(state, data, propsInObject, ctx, show) {
   const allDates = data.dates;
   let shownDates = allDates.slice(allDates.indexOf(state.animation.shownFrom));
   const datesToRender = [];
+  if (show === "timestamp") {
+    shownDates = allDates.slice(0);
+  }
 
   // Calculating rendering X axis dates
   for (let i = 0; i < shownDates.length; i += Math.floor(props.zoomRatio)) {

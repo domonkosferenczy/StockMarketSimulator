@@ -132,6 +132,86 @@ code {
   padding: 0.4em 4%;
 }
 
+.popup-window-bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 99;
+  /* display: none; */
+}
+
+.popup-window {
+  position: fixed;
+  width: 80%;
+  height: 80%;
+  left: 10%;
+  top: 10%;
+  background: #313131;
+  border-radius: 1em;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+  box-sizing: border-box;
+  display: none;
+}
+
+.popup-window-toShow {
+  display: block;
+  animation: showAnimation 0.6s ease;
+}
+
+.popup-window-table {
+  width: 100%;
+  height: 90%;
+  padding: 1em;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.popup-window-table-header {
+  border-bottom: 1px solid black;
+  background: rgb(35, 35, 35);
+}
+
+.popup-window-table-header,
+.popup-window-table-body {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.popup-window-table-header span,
+.popup-window-table-body span {
+  font-weight: bold;
+  width: 20%;
+  box-sizing: border-box;
+  margin: 0.5em;
+}
+
+.popup-window-table-body {
+  border-bottom: 1px solid rgb(15, 15, 15);
+  background: #383838;
+  cursor: pointer;
+}
+
+.popup-window-table-body:hover {
+  background: rgb(45, 45, 45);
+}
+
+.popup-window-table-footer {
+  width: 100%;
+  padding: 1em;
+  box-sizing: border-box;
+  text-align: right;
+}
+
+.popup-window {
+}
+
 .StocksFilter {
   display: flex;
   flex-direction: row;
@@ -192,11 +272,13 @@ code {
 }
 
 .StocksList::-webkit-scrollbar,
-.AppRightSection::-webkit-scrollbar {
+.AppRightSection::-webkit-scrollbar,
+.popup-window-table::-webkit-scrollbar {
   width: 5px;
 }
 
 .StocksList::-webkit-scrollbar-track,
+.popup-window-table-scrollbar-track,
 .AppRightSection::-webkit-scrollbar-track {
   background: #313131;
   border-radius: 10px;
@@ -204,6 +286,7 @@ code {
 
 /* Handle */
 .StocksList::-webkit-scrollbar-thumb,
+.popup-window-table::-webkit-scrollbar-thumb,
 .AppRightSection::-webkit-scrollbar-thumb {
   background: rgba(26, 26, 26, 0.8);
   border-radius: 10px;
@@ -211,6 +294,7 @@ code {
 
 /* Handle on hover */
 .StocksList::-webkit-scrollbar-thumb:hover,
+.popup-window-table::-webkit-scrollbar-thumb:hover,
 .AppRightSection::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.55);
 }
