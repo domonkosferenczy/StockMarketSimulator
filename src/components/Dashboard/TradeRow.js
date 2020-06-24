@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { StoreContext } from "Store/Store";
 import { DataContext } from "Store/Data";
 import TradeInput from "./TradeInput";
+import TradeRow from "./TradeRow";
 import { formatMoney } from "components/Global_Components/calculations";
 import {
   INCR_CAPITAL,
@@ -122,96 +123,9 @@ function Trade() {
     }
   };
 
-  // Input handling
-  const inputHandler = (id, count) => {
-    let inputVal = parseInt(count);
-
-    setlocalState((prevState) => {
-      return {
-        ...prevState,
-        [id]: {
-          ...prevState[id],
-          count: inputVal,
-        },
-      };
-    });
-  };
-
-  // Recalulating values
-  useEffect(() => {
-    const calVal = (id) => localState[id].count * currentDataPoint.close;
-    const valBuy = calVal("buy");
-    const valSell = calVal("sell");
-
-    let countSell = localState.sell.count;
-
-    if (!includesChosen) {
-      countSell = 0;
-    } else {
-      if (ownedStocks[chosen].numberOfStocks < countSell) {
-        countSell = ownedStocks[chosen].numberOfStocks;
-      }
-    }
-
-    setlocalState((prevState) => {
-      return {
-        ...prevState,
-        buy: {
-          ...prevState.buy,
-          value: valBuy,
-        },
-        sell: {
-          ...prevState.sell,
-          value: valSell,
-          count: countSell,
-        },
-      };
-    });
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    localState.buy.count,
-    localState.sell.count,
-    state.user.ownedStocks,
-    state.animation.chosen,
-  ]);
-
-  useEffect(() => {
-    const countSell =
-      includesChosen && ownedStocks[chosen].numberOfStocks > 0 ? 1 : 0;
-    const countBuy = 1;
-    setlocalState((prevState) => {
-      return {
-        ...prevState,
-        buy: {
-          ...prevState.buy,
-          count: countBuy,
-        },
-        sell: {
-          ...prevState.sell,
-          count: countSell,
-        },
-      };
-    });
-  }, [
-    state.user.ownedStocks,
-    state.animation.chosen,
-    includesChosen,
-    ownedStocks,
-    chosen,
-  ]);
-
-  let stock = { numberOfStocks: 0 };
-  if (includesChosen) {
-    stock = ownedStocks[chosen];
-  }
-
+  
   return (
-    <div className="Trade">
-      TRADE
-      <div className="DashboardButtons">
-        <div className="TradeButtons">
-          <span>${formatMoney(localState.buy.value)}</span>
+        <span>${formatMoney(localState.buy.value)}</span>
           <TradeInput
             type={"buy"}
             inputHandler={(type, count) => inputHandler(type, count)}
