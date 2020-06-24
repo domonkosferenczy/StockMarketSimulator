@@ -16,9 +16,6 @@ function Xaxis(state, data, propsInObject, ctx, show) {
   // Constants for data
   const allDates = data.dates;
   let shownDates = allDates.slice(allDates.indexOf(state.animation.shownFrom));
-  if (show === "timestamp") {
-    shownDates = allDates.slice(1);
-  }
   const datesToRender = [];
 
   // Calculating rendering X axis dates

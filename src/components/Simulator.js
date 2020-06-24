@@ -4,21 +4,35 @@ import GraphContainer from "./Graph/GraphContainer";
 import Dashboard from "./Dashboard/Dashboard";
 import Messages from "./Global_Components/Messages";
 import { DataContext } from "../Store/Data";
-import requestAll from "../api/parseData";
+import { requestDefault } from "../api/parseData";
 import { StoreContext } from "../Store/Store";
 
 function Simulator() {
-  const [state] = useContext(StoreContext);
-  const [data, dispatch] = useContext(DataContext);
+  const [state, StateDispatch] = useContext(StoreContext);
+  const [data, DataDispatch] = useContext(DataContext);
 
   // Loading data from API
   const loadData = async () => {
-    const date = await requestAll();
-    dispatch({ type: "SET_DATA", payload: date });
+    const date = await requestDefault();
+
+    const firstChosen = Object.keys(date.stocks)[0];
+    const secondChosen = Object.keys(date.stocks)[1];
+    const firstDate = date.dates[0];
+    console.log(firstDate);
+    console.log(state);
+    DataDispatch({ type: "SET_DATA", payload: date });
+    StateDispatch({
+      type: "SET_STATE",
+      payload: {
+        firstChosen: firstChosen,
+        secondChosen: secondChosen,
+        firstDate: firstDate,
+      },
+    });
   };
 
   // If the data loaded, rendering the app
-  if (data.loaded === false) {
+  if (data.loaded === false || state.loaded === false) {
     loadData();
     return (
       <div className="Loading">

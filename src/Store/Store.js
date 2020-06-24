@@ -21,8 +21,8 @@ const initialState = {
     speed: 100,
     paused: true,
     zoom: 10,
-    chosen: "AAPL",
-    shown: ["Chosen", "Capital Available", "GOOG", "Value Of Stocks"],
+    chosen: "",
+    shown: ["Chosen", "Capital Available", "", "Value Of Stocks"],
     timestamp: true,
   },
   filter: {
@@ -33,6 +33,7 @@ const initialState = {
     lastId: 0,
     messages: [],
   },
+  loaded: false,
 };
 
 export const Store = (props) => {

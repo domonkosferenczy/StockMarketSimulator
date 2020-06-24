@@ -265,9 +265,35 @@ const Reducer = (state, action) => {
         },
       };
 
+    case "SET_STATE":
+      console.log(state);
+      console.log("reducer");
+      const shown = state.animation.shown;
+      shown[2] = action.payload.secondChosen;
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          history: {
+            ...state.user.history,
+            capitalAvailable: { [action.payload.firstChosen]: 0 },
+            valueOfStocks: { [action.payload.firstChosen]: 0 },
+          },
+        },
+        animation: {
+          ...state.animation,
+          chosen: action.payload.firstChosen,
+          shown: shown,
+          currentDate: action.payload.firstDate,
+          shownFrom: action.payload.firstDate,
+        },
+        loaded: true,
+      };
+
     // Reducer for the Data.js
     case "SET_DATA":
       return action.payload;
+
     default:
       return state;
   }
