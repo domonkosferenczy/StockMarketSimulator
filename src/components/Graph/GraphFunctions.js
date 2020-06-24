@@ -24,7 +24,7 @@ export const useContainerSize = (index) => {
       window.removeEventListener("custom", updateSize);
       window.removeEventListener("fullscreenchange", updateSize);
     };
-  }, []);
+  }, [index]);
   return size;
 };
 

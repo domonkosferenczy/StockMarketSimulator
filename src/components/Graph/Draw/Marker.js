@@ -12,7 +12,6 @@ function Marker(state, data, propsInObject, ctx) {
   // Functions to calculate X and Y values
   const calX = (index) =>
     (index * props.renderSize.width) / props.lines.X / zoomRatio + offsetX;
-  // Rendering candles and graph points
 
   // Calculating X and Y values
   const xShownFrom = calX(data.dates.indexOf(state.animation.shownFrom));

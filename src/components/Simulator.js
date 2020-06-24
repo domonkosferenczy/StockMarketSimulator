@@ -62,6 +62,7 @@ function Simulator() {
         height = "100%";
       }
     }
+
     graphList.forEach((element, index) => {
       graphs.push(
         <GraphContainer

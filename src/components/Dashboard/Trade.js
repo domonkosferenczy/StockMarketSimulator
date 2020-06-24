@@ -1,14 +1,14 @@
 import React, { useContext, useState, useEffect } from "react";
 import { StoreContext } from "Store/Store";
 import { DataContext } from "Store/Data";
-import {
-  formatMoney,
-  formatDoubleNumbers,
-} from "components/Global_Components/calculations";
+import TradeInput from "./TradeInput";
+import { formatMoney } from "components/Global_Components/calculations";
 import {
   INCR_CAPITAL,
   INCR_OWNED_STOCKS,
   ADD_OWNED_STOCKS,
+  ADD_HISTORY_ACTION,
+  ADD_MESSAGE,
 } from "Store/Actions";
 
 function Trade() {
@@ -26,38 +26,22 @@ function Trade() {
   const includesChosen = Object.keys(ownedStocks).includes(chosen);
 
   // State for input handling
-  let initalState;
+  let close = 0;
   if (currentDataPoint !== undefined) {
-    initalState = {
-      buy: {
-        count: 1,
-        focus: false,
-        value: 1 * currentDataPoint.close,
-      },
-      sell: {
-        count: includesChosen && ownedStocks[chosen].numberOfStocks > 0 ? 1 : 0,
-        focus: false,
-        value:
-          (includesChosen && ownedStocks[chosen].numberOfStocks > 0 ? 1 : 0) *
-          currentDataPoint.close,
-      },
-    };
-  } else {
-    initalState = {
-      buy: {
-        count: 1,
-        focus: false,
-        value: 1 * 0,
-      },
-      sell: {
-        count: includesChosen && ownedStocks[chosen].numberOfStocks > 0 ? 1 : 0,
-        focus: false,
-        value:
-          (includesChosen && ownedStocks[chosen].numberOfStocks > 0 ? 1 : 0) *
-          0,
-      },
-    };
+    close = currentDataPoint.close;
   }
+  let initalState = {
+    buy: {
+      count: 1,
+      value: 1 * close,
+    },
+    sell: {
+      count: includesChosen && ownedStocks[chosen].numberOfStocks > 0 ? 1 : 0,
+      value:
+        (includesChosen && ownedStocks[chosen].numberOfStocks > 0 ? 1 : 0) *
+        close,
+    },
+  };
 
   const [localState, setlocalState] = useState(initalState);
 
@@ -74,7 +58,7 @@ function Trade() {
           payload: { ticker: chosen, number: localState.buy.count },
         });
         dispatch({
-          type: "ADD_HISTORY_ACTION",
+          type: ADD_HISTORY_ACTION,
           payload: {
             date: state.animation.currentDate,
             ticker: chosen,
@@ -88,7 +72,7 @@ function Trade() {
           payload: { ticker: chosen, number: localState.buy.count },
         });
         dispatch({
-          type: "ADD_HISTORY_ACTION",
+          type: ADD_HISTORY_ACTION,
           payload: {
             date: state.animation.currentDate,
             ticker: chosen,
@@ -98,7 +82,7 @@ function Trade() {
       }
     } else {
       dispatch({
-        type: "ADD_MESSAGE",
+        type: ADD_MESSAGE,
         payload: { content: "No enough money!", id: state.message.lastId },
       });
     }
@@ -114,7 +98,7 @@ function Trade() {
         });
         dispatch({ type: INCR_CAPITAL, payload: localState.sell.value });
         dispatch({
-          type: "ADD_HISTORY_ACTION",
+          type: ADD_HISTORY_ACTION,
           payload: {
             date: state.animation.currentDate,
             ticker: chosen,
@@ -123,7 +107,7 @@ function Trade() {
         });
       } else {
         dispatch({
-          type: "ADD_MESSAGE",
+          type: ADD_MESSAGE,
           payload: {
             content: "No enough shares owned!",
             id: state.message.lastId,
@@ -132,23 +116,15 @@ function Trade() {
       }
     } else {
       dispatch({
-        type: "ADD_MESSAGE",
+        type: ADD_MESSAGE,
         payload: { content: "No shares owned!", id: state.message.lastId },
       });
     }
   };
 
   // Input handling
-  const changeInput = (event) => {
-    const id = event.target.id;
-    let inputVal = parseInt(event.target.value);
-
-    // Invalid value
-    if (!typeof inputVal === "number" || isNaN(inputVal) || inputVal === "") {
-      if (localState[id].focus) {
-        inputVal = "";
-      }
-    }
+  const inputHandler = (id, count) => {
+    let inputVal = parseInt(count);
 
     setlocalState((prevState) => {
       return {
@@ -156,33 +132,6 @@ function Trade() {
         [id]: {
           ...prevState[id],
           count: inputVal,
-        },
-      };
-    });
-  };
-
-  // Focus handling
-  const setFocus = (event, focusVal) => {
-    const id = event.target.id;
-    let count;
-
-    if (
-      focusVal === false &&
-      (!typeof inputVal === "number" ||
-        isNaN(localState[id].count) ||
-        localState[id].count === "")
-    ) {
-      count = 0;
-    } else {
-      count = localState[id].count;
-    }
-    setlocalState((prevState) => {
-      return {
-        ...prevState,
-        [id]: {
-          ...prevState[id],
-          focus: focusVal,
-          count: count,
         },
       };
     });
@@ -257,30 +206,16 @@ function Trade() {
     stock = ownedStocks[chosen];
   }
 
-  const calCount = (which) =>
-    localState[which].focus
-      ? localState[which].count
-      : formatDoubleNumbers(localState[which].count);
-  const buyCount = calCount("buy");
-  const sellCount = calCount("sell");
-
   return (
     <div className="Trade">
       TRADE
       <div className="DashboardButtons">
         <div className="TradeButtons">
           <span>${formatMoney(localState.buy.value)}</span>
-          <input
-            type="text"
-            id="buy"
-            onChange={changeInput}
-            onBlur={(e) => {
-              setFocus(e, false);
-            }}
-            onFocus={(e) => {
-              setFocus(e, true);
-            }}
-            value={buyCount}
+          <TradeInput
+            type={"buy"}
+            inputHandler={(type, count) => inputHandler(type, count)}
+            count={localState.buy.count}
           />
           <button onClick={buy} id="buy" className="BuyAndSell">
             BUY
@@ -288,17 +223,10 @@ function Trade() {
         </div>
         <div>
           <span>${formatMoney(localState.sell.value)}</span>
-          <input
-            type="text"
-            id="sell"
-            onChange={changeInput}
-            onBlur={(e) => {
-              setFocus(e, false);
-            }}
-            onFocus={(e) => {
-              setFocus(e, true);
-            }}
-            value={sellCount}
+          <TradeInput
+            type={"sell"}
+            inputHandler={(type, count) => inputHandler(type, count)}
+            count={localState.sell.count}
           />
           <button onClick={sell} id="sell" className="BuyAndSell">
             SELL
