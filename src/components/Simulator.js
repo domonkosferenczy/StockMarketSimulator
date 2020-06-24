@@ -18,8 +18,6 @@ function Simulator() {
     const firstChosen = Object.keys(date.stocks)[0];
     const secondChosen = Object.keys(date.stocks)[1];
     const firstDate = date.dates[0];
-    console.log(firstDate);
-    console.log(state);
     DataDispatch({ type: "SET_DATA", payload: date });
     StateDispatch({
       type: "SET_STATE",

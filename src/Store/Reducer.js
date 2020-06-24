@@ -266,8 +266,6 @@ const Reducer = (state, action) => {
       };
 
     case "SET_STATE":
-      console.log(state);
-      console.log("reducer");
       const shown = state.animation.shown;
       shown[2] = action.payload.secondChosen;
       return {
