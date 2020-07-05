@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { StoreContext } from "Store/Store";
 import { DataContext } from "Store/Data";
 import playForward from "../../images/faster.svg";
@@ -18,14 +18,40 @@ function Calendar() {
   const daysOfMonths = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
   const [CalendarDate, setCalendarDate] = useState(currentDate);
+  const [dragged, setDragged] = useState(false);
+  const [pos, setPos] = useState(["10%", "10%"]);
 
+  const CalRef = useRef(null);
+
+  const zoomRatio = Math.round(
+    Math.round(data.dates.length / 12) / state.animation.zoom
+  );
+  const shownDates = data.dates.slice(
+    data.dates.indexOf(state.animation.shownFrom),
+    data.dates.indexOf(currentDate) + 1
+  );
   const days = [];
   let day = 1;
   let week = [];
 
   const setDate = (actDate) => {
     if (data.dates.includes(actDate)) {
-      dispatch({ type: "SET_CURRENT_DATE", payload: actDate });
+      if (shownDates.length > 12 * zoomRatio) {
+        const nextIndex = data.dates.indexOf(actDate);
+        let shownFromDate = data.dates[nextIndex - 12 * zoomRatio];
+        if (shownFromDate === undefined) {
+          shownFromDate = data.dates[0];
+        }
+        dispatch({
+          type: "GRAPH_MOVE",
+          payload: {
+            currentDate: actDate,
+            shownFromData: shownFromDate,
+          },
+        });
+      } else {
+        dispatch({ type: "SET_CURRENT_DATE", payload: actDate });
+      }
     }
   };
 
@@ -64,7 +90,7 @@ function Calendar() {
 
   useEffect(() => {
     setCalendarDate(state.animation.currentDate);
-  }, [state.animation.currentDate]);
+  }, [state.animation.currentDate, data.dates]);
 
   const changeYear = (dir) => {
     dispatch({ type: "SET_PAUSED", payload: true });
@@ -96,43 +122,87 @@ function Calendar() {
     setCalendarDate(newDate);
   };
 
+  const Drag = () => {
+    setDragged(!dragged);
+  };
+
+  const Drop = () => {
+    setDragged(false);
+  };
+
+  const Move = (e) => {
+    e.preventDefault();
+    if (dragged) {
+      const offsetX = CalRef.current.offsetWidth / 2;
+      setPos([e.clientX - offsetX, e.clientY]);
+    }
+  };
+
   return (
-    <div className="Calendar">
-      <div className="Calendar-container">
-        <div className="Calendar-header">
-          <div className="Calendar-header-buttons">
-            <button>
-              <img
-                src={playForward}
-                alt="last year"
-                onClick={() => changeYear(-1)}
-              />
-            </button>
-            <button>
-              <img
-                src={play}
-                alt="last month"
-                onClick={() => changeMonth(-1)}
-              />
-            </button>
-          </div>
-          <span>
-            {YearFromDate(CalendarDate) + " " + MonthFromDate(CalendarDate)}
+    <div>
+      <div
+        className="Calendar-layout"
+        onMouseMove={(e) => Move(e)}
+        onMouseUp={() => Drop()}
+        style={{
+          display: dragged ? "block" : "none",
+          cursor: dragged ? "grabbing" : "grab",
+        }}
+      ></div>
+      <div
+        className="Calendar"
+        style={{ position: "fixed", left: pos[0], top: pos[1] }}
+        onMouseMove={(e) => Move(e)}
+        ref={CalRef}
+      >
+        <div className="Calendar-container">
+          <span
+            className="DragAndDrop"
+            onMouseDown={() => Drag()}
+            onMouseUp={() => Drop()}
+            style={{ cursor: dragged ? "grabbing" : "grab" }}
+          >
+            ...
           </span>
-          <div className="Calendar-header-buttons">
-            <button>
-              <img src={play} alt="next month" onClick={() => changeMonth(1)} />
-            </button>
-            <button>
-              <img
-                src={playForward}
-                alt="next year"
-                onClick={() => changeYear(1)}
-              />
-            </button>
+          <div className="Calendar-header">
+            <div className="Calendar-header-buttons">
+              <button>
+                <img
+                  src={playForward}
+                  alt="last year"
+                  onClick={() => changeYear(-1)}
+                />
+              </button>
+              <button>
+                <img
+                  src={play}
+                  alt="last month"
+                  onClick={() => changeMonth(-1)}
+                />
+              </button>
+            </div>
+            <span>
+              {YearFromDate(CalendarDate) + " " + MonthFromDate(CalendarDate)}
+            </span>
+            <div className="Calendar-header-buttons">
+              <button>
+                <img
+                  src={play}
+                  alt="next month"
+                  onClick={() => changeMonth(1)}
+                />
+              </button>
+              <button>
+                <img
+                  src={playForward}
+                  alt="next year"
+                  onClick={() => changeYear(1)}
+                />
+              </button>
+            </div>
           </div>
+          <div className="Calendar-body">{days}</div>
         </div>
-        <div className="Calendar-body">{days}</div>
       </div>
     </div>
   );
