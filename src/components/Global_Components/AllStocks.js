@@ -86,7 +86,7 @@ function AllStocks(props) {
       Object.assign(prevData.stocks, data.stocks);
     }
     DataDispatch({ type: "SET_DATA", payload: prevData });
-    StateDispatch({ type: "CLEAR_HISTORY" });
+    StateDispatch({ type: "" });
     closeWindow();
   };
 

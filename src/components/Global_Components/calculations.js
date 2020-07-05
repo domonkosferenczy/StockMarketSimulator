@@ -49,6 +49,18 @@ export const formatMoney = (money) => {
   }
 };
 
+export const YearFromDate = (date) => {
+  return date.substring(0, 4);
+};
+
+export const MonthFromDate = (date) => {
+  return date.substring(5, 7);
+};
+
+export const DayFromDate = (date) => {
+  return date.substring(8, 10);
+};
+
 // Not used functions
 /*export const DateNextDay = currentDate => {
     let day = new Date(currentDate);

@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Sidebar from "./Sidebar/Sidebar";
 import GraphContainer from "./Graph/GraphContainer";
 import Dashboard from "./Dashboard/Dashboard";
 import Messages from "./Global_Components/Messages";
 import { DataContext } from "../Store/Data";
-import { requestDefault } from "../api/parseData";
+import { requestDefault, requestAll } from "../api/parseData";
 import { StoreContext } from "../Store/Store";
 
 function Simulator() {
@@ -30,7 +30,7 @@ function Simulator() {
   };
 
   // If the data loaded, rendering the app
-  if (data.loaded === false || state.loaded === false) {
+  if (!state.loaded) {
     loadData();
     return (
       <div className="Loading">
