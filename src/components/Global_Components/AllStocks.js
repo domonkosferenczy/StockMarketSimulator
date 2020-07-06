@@ -5,7 +5,7 @@ import { requestTickers, requestStock } from "../../api/parseData";
 
 function AllStocks(props) {
   const [data, DataDispatch] = useContext(DataContext);
-  const [state, StateDispatch] = useContext(StoreContext);
+  const [, StateDispatch] = useContext(StoreContext);
 
   const inititalState = {
     tickers: {},
@@ -103,7 +103,7 @@ function AllStocks(props) {
       visibleClass = "popup-window-toShow";
     }
 
-    Object.keys(localState.tickers).map((ticker) => {
+    Object.keys(localState.tickers).forEach((ticker) => {
       if (!Object.keys(data.stocks).includes(ticker)) {
         tickers.push(
           <div

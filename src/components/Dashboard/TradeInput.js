@@ -11,6 +11,7 @@ function TradeInput(props) {
 
   useEffect(() => {
     props.inputHandler(props.type, localState.count);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localState]);
 
   useEffect(() => {

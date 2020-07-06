@@ -118,8 +118,8 @@ export const requestStockOnlyMeta = async (ticker) => {
 };
 
 export const requestDefault = async () => {
-  const response = await fetch(`${serverAPI}all`);
-  const data = await response.json();
+  //const response = await fetch(`${serverAPI}all`);
+  //const data = await response.json();
 
   const tickers = ["aapl", "goog"];
 

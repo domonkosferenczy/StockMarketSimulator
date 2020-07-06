@@ -5,7 +5,7 @@ import { StoreContext } from "../../Store/Store";
 import AllStocks from "components/Global_Components/AllStocks";
 
 function AvailableStocks() {
-  const [state, stateDispatch] = useContext(StoreContext);
+  const [, stateDispatch] = useContext(StoreContext);
 
   const [showAllStocks, setShowAllStocks] = useState(false);
   const [loadedAllStocks, setLoadedAllStocks] = useState(true);
