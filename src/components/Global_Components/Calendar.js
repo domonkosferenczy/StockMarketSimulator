@@ -15,7 +15,23 @@ function Calendar() {
   const [data] = useContext(DataContext);
 
   const currentDate = state.animation.currentDate;
+
+  // Date object...
   const daysOfMonths = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  const namesOfMonths = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
   const [CalendarDate, setCalendarDate] = useState(currentDate);
   const [dragged, setDragged] = useState(false);
@@ -182,7 +198,9 @@ function Calendar() {
               </button>
             </div>
             <span>
-              {YearFromDate(CalendarDate) + " " + MonthFromDate(CalendarDate)}
+              {YearFromDate(CalendarDate) +
+                " " +
+                namesOfMonths[MonthFromDate(CalendarDate) - 1]}
             </span>
             <div className="Calendar-header-buttons">
               <button>

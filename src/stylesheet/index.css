@@ -446,10 +446,8 @@ code {
   text-align: center;
   align-items: center;
   background: #3d3d3d;
-  border-radius: 2px;
   color: #fff;
   border: 0.5px solid #585858;
-  box-shadow: 1px 1px 2px #181818;
   cursor: pointer;
 }
 
@@ -480,10 +478,8 @@ code {
   align-items: center;
   width: 3em;
   background: #3d3d3d;
-  border-radius: 2px;
   color: #fff;
   border: 0.5px solid #585858;
-  box-shadow: 1px 1px 2px #181818;
   cursor: pointer;
 }
 
@@ -499,7 +495,7 @@ code {
 }
 
 .AnimationButtons-plusMinus button {
-  padding: 0.05em 1em;
+  padding: calc(0.05em - 0.25px) 1em;
 }
 
 .AnimationButtons-plusMinus button img {

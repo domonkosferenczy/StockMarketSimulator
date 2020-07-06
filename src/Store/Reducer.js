@@ -238,17 +238,33 @@ const Reducer = (state, action) => {
           },
         },
       };
-
     case "ADD_HISTORY_ACTION":
-      let payload = state.user.history.actions;
-      payload.push(action.payload);
+      let setPayload = state.user.history.actions;
+
+      if (setPayload.length === 0) {
+        setPayload.push(action.payload);
+      } else {
+        let found = false;
+        setPayload.forEach((element, index) => {
+          if (
+            element.date === action.payload.date &&
+            element.ticker === action.payload.ticker
+          ) {
+            setPayload[index].number += action.payload.number;
+            found = true;
+          }
+        });
+        if (!found) {
+          setPayload.push(action.payload);
+        }
+      }
       return {
         ...state,
         user: {
           ...state.user,
           history: {
             ...state.user.history,
-            actions: payload,
+            actions: setPayload,
           },
         },
       };

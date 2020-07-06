@@ -14,6 +14,7 @@ const initialState = {
       valueOfStocks: { "2016-01-04": 0 },
       actions: [],
     },
+    preActions: [],
   },
   animation: {
     shownFrom: "2016-01-04",
